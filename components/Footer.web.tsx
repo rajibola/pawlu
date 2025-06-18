@@ -13,8 +13,7 @@ export function Footer() {
             Contacts
           </InterText>
           <InterText className="text-white text-sm">
-            <InterText>Email</InterText>
-            <InterText>info@example.com</InterText>
+            Email: sales@pawlus.mt
           </InterText>
         </View>
         <View className="gap-4">

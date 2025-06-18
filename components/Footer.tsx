@@ -14,8 +14,7 @@ export function Footer() {
         Contacts
       </InterText>
       <InterText className="text-sm text-white mb-[77px]">
-        <InterText>Email</InterText>
-        <InterText>info@example.com</InterText>
+        Email: sales@pawlus.mt
       </InterText>
       <InterText className="text-xs text-white mb-4 font-medium">
         Privacy Policy

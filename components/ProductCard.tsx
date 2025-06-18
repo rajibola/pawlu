@@ -3,7 +3,7 @@ import { Image, ImageSourcePropType, View } from "react-native";
 import InterText from "./InterText";
 
 interface ProductCardProps {
-  image: ImageSourcePropType | string; // Accept local or remote image
+  image: ImageSourcePropType | string;
   name: string;
   price: string;
 }
