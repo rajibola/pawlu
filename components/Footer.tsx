@@ -1,7 +1,6 @@
 import Facebook from "@/assets/images/svgs/Facebook";
 import Instagram from "@/assets/images/svgs/Instagram";
-import Twine from "@/assets/images/svgs/Twine";
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import InterText from "./InterText";
 
 export function Footer() {
@@ -29,15 +28,10 @@ export function Footer() {
       </InterText>
 
       <View className="border-t border-[#334AAD] mt-[35px] h-[83px]">
-        <View className="flex-row items-center gap-[6px] h-[34px] border border-[#F1BFC9] w-[150px] px-[13px] mt-[24px] mb-[25px] rounded bg-[#1D2953]">
-          <InterText
-            style={{ fontFamily: "Inter" }}
-            className="text-xs text-[#F1BFC9] font-semibold"
-          >
-            Powered by
-          </InterText>
-          <Twine />
-        </View>
+        <Image
+          source={require("../assets/images/twine.png")}
+          className="h-[34px] object-contain w-[150px] mt-[24px] mb-[25px]"
+        />
       </View>
     </View>
   );

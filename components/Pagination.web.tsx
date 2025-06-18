@@ -115,26 +115,14 @@ export default function Pagination({
             key={idx}
             disabled={isDisabled || isActive}
             onPress={() => onPageChange(item.url ?? null)}
-            style={{
-              height: 36,
-              minWidth: 36,
-              paddingHorizontal: 12,
-              marginHorizontal: 4,
-              borderRadius: 6,
-              borderWidth: 1,
-              borderColor: isActive ? "#101828" : "#EAECF0",
-              backgroundColor: isActive ? "#101828" : "#FFFFFF",
-              alignItems: "center",
-              justifyContent: "center",
-              opacity: isDisabled ? 0.5 : 1,
-            }}
+            className={`h-[36px] min-w-[36px] px-4 mx-1 rounded border border-[#EAECF0] flex items-center justify-center bg-white opacity-100 ${
+              isActive ? "bg-[#101828] text-white" : "bg-white text-[#101828]"
+            } ${isDisabled ? "opacity-50" : "opacity-100"}`}
           >
             <Text
-              style={{
-                fontSize: 14,
-                fontWeight: isActive ? "bold" : "normal",
-                color: isActive ? "#FFFFFF" : "#101828",
-              }}
+              className={`text-sm ${
+                isActive ? "font-bold text-white" : "font-normal text-[#101828]"
+              }`}
             >
               {item.label}
             </Text>

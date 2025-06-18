@@ -74,13 +74,18 @@ const ScreenContainer: React.FC<ScreenContainerProps> = ({
       : View;
 
   return (
-    <SafeAreaView style={[styles.container, containerStyle]} edges={edges}>
+    <SafeAreaView
+      className="flex-1 bg-[#f5f5f5]"
+      style={containerStyle}
+      edges={edges}
+    >
       <KeyboardWrapper
-        style={styles.keyboardWrapper}
+        className="flex-1"
         behavior={isIOS() ? "padding" : undefined}
       >
         <ContentWrapper
-          style={[styles.content, padding, contentStyle]}
+          className="flex-1"
+          style={[padding, contentStyle]}
           contentContainerStyle={[
             { flexGrow: 1 },
             scrollable ? contentContainerStyle : {},
@@ -103,16 +108,6 @@ const ScreenContainer: React.FC<ScreenContainerProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  content: {
-    flex: 1,
-  },
-  keyboardWrapper: {
-    flex: 1,
-  },
   loaderContainer: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(0, 0, 0, 0.3)",
