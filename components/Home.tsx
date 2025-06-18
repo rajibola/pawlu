@@ -3,9 +3,11 @@ import { ActivityIndicator, FlatList, View } from "react-native";
 import useProducts from "../hooks/useProducts";
 import { Footer } from "./Footer";
 import InterText from "./InterText";
+import Pagination from "./Pagination";
 
 export default function Home() {
-  const { products, loading, renderPagination, renderProduct } = useProducts();
+  const { products, loading, meta, handlePageChange, renderProduct, apiUrl } =
+    useProducts();
 
   return (
     <View className="flex-1 flex-col">
@@ -22,7 +24,7 @@ export default function Home() {
           numColumns={2}
           renderItem={renderProduct}
           columnWrapperStyle={{
-            justifyContent: "center",
+            justifyContent: "flex-start",
             gap: 16,
             paddingHorizontal: 16,
           }}
@@ -32,7 +34,11 @@ export default function Home() {
           showsVerticalScrollIndicator={false}
           ListFooterComponent={
             <View className="flex-1 flex-col gap-[54px]">
-              {renderPagination && renderPagination()}
+              <Pagination
+                meta={meta}
+                onPageChange={handlePageChange}
+                apiUrl={apiUrl}
+              />
               <Footer />
             </View>
           }

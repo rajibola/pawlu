@@ -29,7 +29,7 @@ export function Footer() {
       </InterText>
 
       <View className="border-t border-[#334AAD] mt-[35px] h-[83px]">
-        <View className="flex-row items-center gap-[6px] h-[34px] border border-[#F1BFC9] w-[150px] px-[13px] mt-[24px] mb-[25px] rounded">
+        <View className="flex-row items-center gap-[6px] h-[34px] border border-[#F1BFC9] w-[150px] px-[13px] mt-[24px] mb-[25px] rounded bg-[#1D2953]">
           <InterText
             style={{ fontFamily: "Inter" }}
             className="text-xs text-[#F1BFC9] font-semibold"
