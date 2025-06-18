@@ -85,8 +85,8 @@ export default function Pagination({
     type: "next",
     label: (
       <View className="flex-row items-center gap-2">
-        <Text className="text-sm text-gray-500">Next</Text>
         <Next />
+        <Text className="text-sm text-gray-500">Next</Text>
       </View>
     ),
     url: next_page_url,

@@ -4,7 +4,7 @@ import Logo from "../assets/images/svgs/Logo";
 
 export function Header() {
   return (
-    <View className="flex-row justify-between items-center h-16 bg-white px-12 w-full border-b border-gray-200">
+    <View className="flex-row justify-between items-center h-16 bg-white px-12 w-full">
       <Text className="text-base text-black">Products</Text>
       <Logo width={134.41} height={45.37} />
       <View className="relative">

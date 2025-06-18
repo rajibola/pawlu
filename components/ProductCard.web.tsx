@@ -1,5 +1,7 @@
+import { ShoppingBag } from "@/assets/images/svgs/ShoppingBag";
 import React from "react";
 import { Image, ImageSourcePropType, View } from "react-native";
+import { Heart } from "../assets/images/svgs/Heart";
 import InterText from "./InterText";
 
 interface ProductCardProps {
@@ -17,6 +19,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ image, name, price }) => {
           className="w-full h-full object-cover"
           resizeMode="contain"
         />
+        <View className="absolute top-[18px] right-[18px] flex-col gap-[20px]">
+          <Heart />
+          <ShoppingBag />
+        </View>
       </View>
       <View className="w-full px-2">
         <InterText className="text-sm font-semibold text-[#101828] mb-2">

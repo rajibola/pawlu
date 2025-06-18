@@ -1,58 +1,46 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import ProductCard from "../components/ProductCard";
-
-type ProductMedia = {
-  url: string;
-  conversions?: { "medium-square"?: string };
-};
-
-type ProductVariant = {
-  price: { formatted: string };
-};
-
-type Product = {
-  id: number;
-  title: string;
-  media: ProductMedia[];
-  product_variants: ProductVariant[];
-};
-
-type PaginationMeta = {
-  current_page: number;
-  last_page: number;
-  next_page_url: string | null;
-  prev_page_url: string | null;
-};
+import {
+  fetchProducts,
+  formatProductForDisplay,
+  type ApiError,
+  type PaginationMeta,
+  type Product,
+} from "../services";
 
 const PLACEHOLDER_IMAGE = require("../assets/images/logo.png");
-const API_URL = "https://pawlus.twinepos.dev/api/online/v1/products";
 
 export type { PaginationMeta, Product };
+
 export default function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [meta, setMeta] = useState<PaginationMeta | null>(null);
   const [loading, setLoading] = useState(false);
-  const [pageUrl, setPageUrl] = useState<string>(API_URL);
+  const [error, setError] = useState<string | null>(null);
+  const [pageUrl, setPageUrl] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
     setLoading(true);
-    fetch(pageUrl)
-      .then((res) => res.json())
-      .then((data) => {
+    setError(null);
+
+    fetchProducts(pageUrl || undefined)
+      .then((response) => {
         if (!isMounted) return;
-        setProducts(data.data);
-        setMeta(data.meta);
+        setProducts(response.data);
+        setMeta(response.meta);
       })
-      .catch(() => {
+      .catch((error: ApiError) => {
         if (isMounted) {
           setProducts([]);
+          setError(error.message);
         }
       })
       .finally(() => {
         if (isMounted) setLoading(false);
       });
+
     return () => {
       isMounted = false;
     };
@@ -60,7 +48,7 @@ export default function useProducts() {
 
   const handlePageChange = useCallback(
     (url: string | null) => {
-      if (url && url !== pageUrl) {
+      if (url !== pageUrl) {
         setPageUrl(url);
       }
     },
@@ -68,17 +56,14 @@ export default function useProducts() {
   );
 
   const renderProduct = useCallback(({ item }: { item: Product }) => {
-    const image =
-      item.media && item.media.length > 0
-        ? item.media[0].conversions?.["medium-square"] || item.media[0].url
-        : PLACEHOLDER_IMAGE;
-    const price =
-      item.product_variants && item.product_variants.length > 0
-        ? item.product_variants[0].price.formatted
-        : "-";
+    const formattedProduct = formatProductForDisplay(item);
     return (
       <View style={{ width: "48%", marginBottom: 16 }}>
-        <ProductCard image={image} name={item.title} price={price} />
+        <ProductCard
+          image={formattedProduct.image}
+          name={formattedProduct.title}
+          price={formattedProduct.price}
+        />
       </View>
     );
   }, []);
@@ -86,9 +71,10 @@ export default function useProducts() {
   return {
     products,
     loading,
+    error,
     meta,
     handlePageChange,
     renderProduct,
-    apiUrl: API_URL,
+    apiUrl: pageUrl,
   };
 }
