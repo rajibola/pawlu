@@ -1,5 +1,4 @@
-import Facebook from "@/assets/images/svgs/Facebook";
-import Instagram from "@/assets/images/svgs/Instagram";
+import { Facebook, Instagram } from "@/assets/images/svgs";
 import { Image } from "expo-image";
 import { View } from "react-native";
 import InterText from "./InterText";

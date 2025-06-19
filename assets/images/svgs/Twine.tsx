@@ -1,13 +1,15 @@
-import { Defs, LinearGradient, Path, Stop, Svg } from "react-native-svg";
+import {
+  Defs,
+  LinearGradient,
+  Path,
+  Stop,
+  Svg,
+  SvgProps,
+} from "react-native-svg";
 
-export default function Twine(props: { width?: number; height?: number }) {
+export const Twine = (props: SvgProps) => {
   return (
-    <Svg
-      width={props.width || 49}
-      height={props.height || 10}
-      viewBox="0 0 50 10"
-      fill="none"
-    >
+    <Svg width={49} height={10} viewBox="0 0 50 10" fill="none" {...props}>
       <Path
         d="M19.4608 4.98691V 7.3854C19.4608 7.96811 19.942 8.02262 20.798 7.96811V9.81021C18.2515 10.0809 17.5107 9.28202 17.5107 7.3854V4.98691V3.03578V1.74818L19.459 1.13916V3.03578H20.7962V4.98691H19.459H19.4608Z"
         fill="#F1BFC9"
@@ -101,4 +103,4 @@ export default function Twine(props: { width?: number; height?: number }) {
       </Defs>
     </Svg>
   );
-}
+};

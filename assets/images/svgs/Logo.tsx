@@ -1,6 +1,6 @@
 import { Svg, SvgProps } from "react-native-svg";
 
-export default function Logo(props: SvgProps) {
+export const Logo = (props: SvgProps) => {
   return (
     <Svg width="75" height="26" viewBox="0 0 75 26" fill="none" {...props}>
       <rect
@@ -32,4 +32,4 @@ export default function Logo(props: SvgProps) {
       </defs>
     </Svg>
   );
-}
+};

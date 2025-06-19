@@ -1,7 +1,6 @@
+import { Next, Previous } from "@/assets/images/svgs";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { Next } from "../assets/images/svgs/Next";
-import { Previous } from "../assets/images/svgs/Previous";
 
 type PaginationMeta = {
   current_page: number;

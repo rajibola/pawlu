@@ -1,6 +1,5 @@
+import { Cart, Logo } from "@/assets/images/svgs";
 import { Text, View } from "react-native";
-import Cart from "../assets/images/svgs/Cart";
-import Logo from "../assets/images/svgs/Logo";
 
 export function Header() {
   return (

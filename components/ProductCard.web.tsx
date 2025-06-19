@@ -1,7 +1,6 @@
-import { ShoppingBag } from "@/assets/images/svgs/ShoppingBag";
 import React from "react";
 import { Image, ImageSourcePropType, View } from "react-native";
-import { Heart } from "../assets/images/svgs/Heart";
+import { Heart, ShoppingBag } from "../assets/images/svgs";
 import InterText from "./InterText";
 
 interface ProductCardProps {
