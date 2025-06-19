@@ -1,8 +1,8 @@
 import React from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
 import useProducts from "../hooks/useProducts";
-import { Footer } from "./Footer";
-import InterText from "./InterText";
+import { Footer } from "../shared/Footer";
+import InterText from "../shared/InterText";
 import Pagination from "./Pagination";
 
 export default function Home() {

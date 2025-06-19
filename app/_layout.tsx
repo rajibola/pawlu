@@ -1,4 +1,4 @@
-import { Header } from "@/components/Header";
+import { Header } from "@/shared/Header";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";

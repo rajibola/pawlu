@@ -1,12 +1,12 @@
 import React from "react";
 import { ActivityIndicator, ScrollView, View } from "react-native";
 import useProducts from "../hooks/useProducts";
-import InterText from "./InterText";
+import InterText from "../shared/InterText";
 import Pagination from "./Pagination.web";
 import ProductCard from "./ProductCard.web";
 
 import { formatProductForDisplay, type Product } from "../services";
-import { Footer } from "./Footer.web";
+import { Footer } from "../shared/Footer.web";
 
 export default function Home() {
   const { products, loading, error, meta, handlePageChange, apiUrl } =
