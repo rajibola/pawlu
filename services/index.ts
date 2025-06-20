@@ -1,19 +1,14 @@
 // Export all services
 export {
   ENDPOINTS,
-  getProductById,
+  getProductBySlug,
   getProducts,
   productsApi,
   type ApiError,
-  type ApiResponse,
-  type PaginationMeta,
-  type Product,
-  type ProductMedia,
-  type ProductVariant,
 } from "./api";
 
 export {
-  fetchProductById,
+  fetchProductBySlug,
   fetchProducts,
   formatProductForDisplay,
   getProductImage,

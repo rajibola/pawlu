@@ -48,3 +48,22 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+# Features
+
+## Product Detail Page
+
+The application includes a product detail page that displays comprehensive information about a product.
+
+- **Responsive Layout**: The page is fully responsive, with a two-column layout on web and a single-column layout on mobile.
+- **Image Gallery**: A gallery with a main image and thumbnails allows users to view multiple product images.
+- **Variant Selection**: Users can select product variants such as color and size. The available options are dynamically rendered based on the product data.
+- **Quantity Selection**: A quantity selector allows users to choose how many items they want to add to the cart.
+- **Accessibility**: All interactive elements on the page have accessibility props to ensure a good user experience with screen readers.
+
+## Cart Persistence
+
+The shopping cart state is persisted across application sessions.
+
+- **Context API**: The cart is managed using React's Context API, making the cart state available throughout the application.
+- **AsyncStorage & localStorage**: On mobile, the cart data is saved to `AsyncStorage`. On the web, `localStorage` is used. This ensures that the user's cart is not lost when they close and reopen the application.

@@ -1,3 +1,5 @@
+import { ApiResponse, Product } from "@/types";
+
 // Base API configuration
 const API_BASE_URL = "https://pawlus.twinepos.dev/api/online/v1";
 
@@ -7,32 +9,17 @@ export const ENDPOINTS = {
 } as const;
 
 // Types
-export type ProductMedia = {
-  url: string;
-  conversions?: { "medium-square"?: string };
-};
-
-export type ProductVariant = {
-  price: { formatted: string };
-};
-
-export type Product = {
+export type OptionValue = {
   id: number;
-  title: string;
-  media: ProductMedia[];
-  product_variants: ProductVariant[];
+  name: string;
+  value: string;
+  option_id: number;
 };
 
-export type PaginationMeta = {
-  current_page: number;
-  last_page: number;
-  next_page_url: string | null;
-  prev_page_url: string | null;
-};
-
-export type ApiResponse<T> = {
-  data: T;
-  meta: PaginationMeta;
+export type Option = {
+  id: number;
+  name: string;
+  option_values: OptionValue[];
 };
 
 // API error handling
@@ -88,8 +75,13 @@ export async function getProducts(
   return apiRequest<ApiResponse<Product[]>>(endpoint);
 }
 
-export async function getProductById(id: number): Promise<Product> {
+export async function getProductById(id: number): Promise<{ data: Product }> {
   const endpoint = `${ENDPOINTS.PRODUCTS}/${id}`;
+  return apiRequest<{ data: Product }>(endpoint);
+}
+
+export async function getProductBySlug(slug: string): Promise<Product> {
+  const endpoint = `${ENDPOINTS.PRODUCTS}/${slug}`;
   return apiRequest<Product>(endpoint);
 }
 
@@ -97,4 +89,5 @@ export async function getProductById(id: number): Promise<Product> {
 export const productsApi = {
   getProducts,
   getProductById,
+  getProductBySlug,
 };

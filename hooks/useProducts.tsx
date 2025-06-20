@@ -1,15 +1,13 @@
+import { PaginationMeta, Product } from "@/types";
+import { Link } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import ProductCard from "../components/ProductCard";
 import {
   fetchProducts,
   formatProductForDisplay,
   type ApiError,
-  type PaginationMeta,
-  type Product,
 } from "../services";
-
-const PLACEHOLDER_IMAGE = require("../assets/images/logo.png");
 
 export type { PaginationMeta, Product };
 
@@ -58,13 +56,18 @@ export default function useProducts() {
   const renderProduct = useCallback(({ item }: { item: Product }) => {
     const formattedProduct = formatProductForDisplay(item);
     return (
-      <View style={{ width: "48%", marginBottom: 16 }}>
-        <ProductCard
-          image={formattedProduct.image}
-          name={formattedProduct.title}
-          price={formattedProduct.price}
-        />
-      </View>
+      <Link href={`/product/${item.slug}`} asChild>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={{ width: "48%", marginBottom: 16 }}
+        >
+          <ProductCard
+            image={formattedProduct.image}
+            name={formattedProduct.title}
+            price={formattedProduct.price}
+          />
+        </TouchableOpacity>
+      </Link>
     );
   }, []);
 

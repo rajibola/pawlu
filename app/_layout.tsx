@@ -1,3 +1,4 @@
+import { CartProvider } from "@/context/CartContext";
 import { Header } from "@/shared/Header";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -14,16 +15,18 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaView edges={["top"]} className="flex-1 bg-white">
-      <Header />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: {
-            backgroundColor: "white",
-          },
-        }}
-      />
-    </SafeAreaView>
+    <CartProvider>
+      <SafeAreaView edges={["top"]} className="flex-1 bg-white">
+        <Header />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: {
+              backgroundColor: "white",
+            },
+          }}
+        />
+      </SafeAreaView>
+    </CartProvider>
   );
 }

@@ -1,0 +1,179 @@
+import { Facebook, Heart, Instagram } from "@/assets/images/svgs";
+import ProductImageGallery from "@/components/ProductImageGallery";
+import { useProductPage } from "@/hooks/useProductPage";
+import { Footer } from "@/shared/Footer";
+import InterText from "@/shared/InterText";
+import { OptionValue } from "@/types";
+import {
+  ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+export default function ProductDetail() {
+  const {
+    product,
+    loading,
+    error,
+    options,
+    quantity,
+    setQuantity,
+    selectedOptions,
+    handleOptionSelect,
+    handleAddToCart,
+  } = useProductPage();
+
+  if (loading) {
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <ActivityIndicator size="large" color="#101828" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View className="flex-1 justify-center items-center p-4 bg-white">
+        <InterText className="text-red-500 text-center">{error}</InterText>
+      </View>
+    );
+  }
+
+  if (!product) {
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <InterText>Product not found.</InterText>
+      </View>
+    );
+  }
+
+  const renderVariantSelectors = () => (
+    <View className="space-y-6">
+      {options.map((option) => {
+        const isColorOption = option.name.toLowerCase() === "color";
+        return (
+          <View key={option.id}>
+            <InterText className="text-sm font-medium text-gray-800 mb-3">
+              {option.name}
+            </InterText>
+            <View className="flex-row flex-wrap gap-3">
+              {option.option_values.map((value: OptionValue) => {
+                const isSelected = selectedOptions[option.id] === value.id;
+                if (isColorOption) {
+                  return (
+                    <TouchableOpacity
+                      key={value.id}
+                      onPress={() => handleOptionSelect(option.id, value.id)}
+                      className={`w-8 h-8 rounded-full border-1 justify-center items-center ${
+                        isSelected ? "border-[#FFD36C]" : "border-transparent"
+                      }`}
+                      style={{ backgroundColor: value.value }}
+                    />
+                  );
+                }
+                return (
+                  <TouchableOpacity
+                    key={value.id}
+                    onPress={() => handleOptionSelect(option.id, value.id)}
+                    className={`px-5 py-2.5 rounded-lg border ${
+                      isSelected
+                        ? "bg-[#FFD36C] border-[#FFD36C]"
+                        : "bg-white border-gray-300"
+                    }`}
+                  >
+                    <InterText
+                      className={`text-sm font-medium ${
+                        isSelected ? "text-white" : "text-gray-800"
+                      }`}
+                    >
+                      {value.name}
+                    </InterText>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </View>
+        );
+      })}
+    </View>
+  );
+
+  const renderQuantitySelector = () => (
+    <View>
+      <InterText className="text-base font-medium text-[#667085] mb-3">
+        Quantity
+      </InterText>
+      <View className="flex-row items-center border border-gray-300 rounded-lg self-start">
+        <TouchableOpacity
+          onPress={() => setQuantity((q) => Math.max(1, q - 1))}
+          className="px-4 py-3"
+        >
+          <InterText className="text-xl text-gray-500">-</InterText>
+        </TouchableOpacity>
+        <InterText className="text-base font-medium text-gray-800 px-4">
+          {quantity}
+        </InterText>
+        <TouchableOpacity
+          onPress={() => setQuantity((q) => q + 1)}
+          className="px-4 py-3"
+        >
+          <InterText className="text-xl text-gray-500">+</InterText>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  const ProductInfo = () => (
+    <View className="w-full px-[10px] space-y-6 mt-10">
+      <View>
+        <InterText className="text-3xl font-bold text-gray-900">
+          {product.title}
+        </InterText>
+        <InterText className="text-2xl text-gray-700 mt-2">
+          {product.product_variants[0]?.price.formatted}
+        </InterText>
+      </View>
+      <InterText className="text-base text-gray-600 leading-relaxed mb-12">
+        {product.description}
+      </InterText>
+      {options.length > 0 && renderVariantSelectors()}
+      {renderQuantitySelector()}
+      <View className="flex-row space-x-4 items-center mt-12 mr-3 gap-2">
+        <TouchableOpacity
+          onPress={handleAddToCart}
+          className="flex-1 bg-[#2E439C] rounded-lg h-11 items-center justify-center"
+        >
+          <InterText className="text-white text-center font-bold text-base">
+            Add to bag
+          </InterText>
+        </TouchableOpacity>
+        <TouchableOpacity className="bg-[#FFF4DC] rounded-lg h-11 w-11 items-center justify-center">
+          <Heart />
+        </TouchableOpacity>
+      </View>
+      <View className="flex-row space-x-4 items-center">
+        <TouchableOpacity>
+          <Facebook />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Instagram />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  return (
+    <View className="flex-1 bg-white">
+      <ScrollView>
+        <View className="w-full mx-4">
+          <ProductImageGallery images={product.media} />
+        </View>
+        <View className="w-full">
+          <ProductInfo />
+        </View>
+        <Footer />
+      </ScrollView>
+    </View>
+  );
+}

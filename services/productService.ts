@@ -1,6 +1,5 @@
-import { getProductById, getProducts, type Product } from "./api";
-
-// Product utility functions
+import { Product } from "@/types";
+import { getProductById, getProductBySlug, getProducts } from "./api";
 
 // Get product image with fallback
 export function getProductImage(product: Product): string {
@@ -22,12 +21,18 @@ export function getProductPrice(product: Product): string {
 
 // Get product by ID
 export async function fetchProductById(id: number): Promise<Product> {
-  return getProductById(id);
+  const response = await getProductById(id);
+  return response.data;
 }
 
 // Get products list
 export async function fetchProducts(url?: string) {
   return getProducts(url);
+}
+
+// Get product by slug
+export async function fetchProductBySlug(slug: string): Promise<Product> {
+  return getProductBySlug(slug);
 }
 
 // Format product for display

@@ -1,12 +1,13 @@
+import { Product } from "@/types";
+import { Link } from "expo-router";
 import React from "react";
-import { ActivityIndicator, ScrollView, View } from "react-native";
+import { ActivityIndicator, Pressable, ScrollView, View } from "react-native";
 import useProducts from "../hooks/useProducts";
+import { formatProductForDisplay } from "../services/productService";
+import { Footer } from "../shared/Footer.web";
 import InterText from "../shared/InterText";
 import Pagination from "./Pagination.web";
 import ProductCard from "./ProductCard.web";
-
-import { formatProductForDisplay, type Product } from "../services";
-import { Footer } from "../shared/Footer.web";
 
 export default function Home() {
   const { products, loading, error, meta, handlePageChange, apiUrl } =
@@ -52,12 +53,15 @@ export default function Home() {
           {products.map((item: Product) => {
             const formattedProduct = formatProductForDisplay(item);
             return (
-              <ProductCard
-                key={item.id}
-                image={formattedProduct.image}
-                name={formattedProduct.title}
-                price={formattedProduct.price}
-              />
+              <Link href={`/product/${item.slug}`} key={item.id} asChild>
+                <Pressable style={{ minWidth: 286 }}>
+                  <ProductCard
+                    image={formattedProduct.image}
+                    name={formattedProduct.title}
+                    price={formattedProduct.price}
+                  />
+                </Pressable>
+              </Link>
             );
           })}
         </View>
