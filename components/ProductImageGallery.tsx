@@ -45,6 +45,7 @@ export default function ProductImageGallery({
         horizontal
         showsHorizontalScrollIndicator={false}
         accessibilityLabel="Product image thumbnails"
+        contentContainerStyle={{ paddingHorizontal: 6 }}
       >
         {images.map((image, index) => (
           <TouchableOpacity

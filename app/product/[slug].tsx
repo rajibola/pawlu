@@ -72,11 +72,13 @@ export default function ProductDetail() {
                     <TouchableOpacity
                       key={value.id}
                       onPress={() => handleOptionSelect(option.id, value.id)}
-                      className={`w-8 h-8 rounded-full border-1 justify-center items-center ${
-                        isSelected ? "border-[#FFD36C]" : "border-transparent"
-                      }`}
-                      style={{ backgroundColor: value.value.toLowerCase() }}
-                    />
+                      className={`w-9 h-9 p-1 rounded-full border justify-center items-center ${isSelected ? "border-black" : "border-transparent"}`}
+                    >
+                      <View
+                        className="w-full h-full rounded-full"
+                        style={{ backgroundColor: value.value.toLowerCase() }}
+                      />
+                    </TouchableOpacity>
                   );
                 }
                 return (
@@ -146,10 +148,10 @@ export default function ProductDetail() {
   const ProductInfo = () => (
     <View className="w-full px-[10px] space-y-6 mt-10">
       <View>
-        <InterText className="text-3xl font-bold text-gray-900">
+        <InterText className="text-xl font-bold text-[#101828]">
           {product.title}
         </InterText>
-        <InterText className="text-2xl text-gray-700 mt-2">
+        <InterText className="text-xl font-medium text-[#2E439C] mt-2">
           {product.product_variants[0]?.price.formatted}
         </InterText>
       </View>
@@ -185,10 +187,10 @@ export default function ProductDetail() {
   return (
     <View className="flex-1 bg-white">
       <ScrollView>
-        <View className="w-full px-4">
+        <View className="w-full px-[10px]">
           <ProductImageGallery images={product.media} />
         </View>
-        <View className="w-full">
+        <View className="w-full mb-10">
           <ProductInfo />
         </View>
         <Footer />
