@@ -73,6 +73,13 @@ export default function ProductDetail() {
                       key={value.id}
                       onPress={() => handleOptionSelect(option.id, value.id)}
                       className={`w-9 h-9 p-1 rounded-full border justify-center items-center ${isSelected ? "border-black" : "border-transparent"}`}
+                      accessible={true}
+                      accessibilityLabel={`${option.name} option: ${value.name}`}
+                      accessibilityHint={
+                        isSelected ? "Selected" : "Double tap to select"
+                      }
+                      accessibilityRole="button"
+                      accessibilityState={{ selected: isSelected }}
                     >
                       <View
                         className="w-full h-full rounded-full"
@@ -90,6 +97,13 @@ export default function ProductDetail() {
                         ? "bg-[#FFCA4E] border-[#FFCA4E]"
                         : "bg-white border-gray-300"
                     }`}
+                    accessible={true}
+                    accessibilityLabel={`${option.name} option: ${value.name}`}
+                    accessibilityHint={
+                      isSelected ? "Selected" : "Double tap to select"
+                    }
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: isSelected }}
                   >
                     <InterText
                       className={`text-sm font-medium ${
@@ -126,17 +140,29 @@ export default function ProductDetail() {
             }
           }}
           keyboardType="numeric"
+          accessible={true}
+          accessibilityLabel="Quantity input"
+          accessibilityHint="Enter the quantity you want to add to cart"
+          accessibilityRole="text"
         />
         <View className="pr-4">
           <TouchableOpacity
             onPress={() => setQuantity(quantity + 1)}
             className="p-1"
+            accessible={true}
+            accessibilityLabel="Increase quantity"
+            accessibilityHint="Double tap to increase quantity by 1"
+            accessibilityRole="button"
           >
             <ChevronUp />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
             className="p-1"
+            accessible={true}
+            accessibilityLabel="Decrease quantity"
+            accessibilityHint="Double tap to decrease quantity by 1"
+            accessibilityRole="button"
           >
             <ChevronDown />
           </TouchableOpacity>
@@ -164,12 +190,22 @@ export default function ProductDetail() {
         <TouchableOpacity
           onPress={handleAddToCart}
           className="flex-1 bg-[#2E439C] rounded-lg h-11 items-center justify-center"
+          accessible={true}
+          accessibilityLabel="Add to bag"
+          accessibilityHint="Double tap to add this product to your shopping bag"
+          accessibilityRole="button"
         >
           <InterText className="text-white text-center font-bold text-base">
             Add to bag
           </InterText>
         </TouchableOpacity>
-        <TouchableOpacity className="bg-[#FFF4DC] rounded-lg h-11 w-11 items-center justify-center">
+        <TouchableOpacity
+          className="bg-[#FFF4DC] rounded-lg h-11 w-11 items-center justify-center"
+          accessible={true}
+          accessibilityLabel="Add to wishlist"
+          accessibilityHint="Double tap to add this product to your wishlist"
+          accessibilityRole="button"
+        >
           <Heart />
         </TouchableOpacity>
       </View>

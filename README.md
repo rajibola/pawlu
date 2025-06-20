@@ -51,19 +51,121 @@ Join our community of developers creating universal apps.
 
 # Features
 
+## Product Listing
+
+The application includes a comprehensive product listing page that displays all available products in a responsive grid layout.
+
+### Key Features
+
+- **Responsive Grid Layout**:
+  - Mobile: 2-column grid layout optimized for touch interaction
+  - Web: 4-column grid layout with responsive breakpoints (1 column on small screens, 2 on medium, 3 on large, 4 on extra large)
+- **Product Cards**: Each product tile displays:
+  - Product image with fallback handling
+  - Product name
+  - Product price
+  - Interactive touch/click areas
+- **Loading States**: Loading indicators are shown while fetching product data
+- **Error Handling**: User-friendly error messages when API requests fail
+- **Navigation**: Tapping/clicking a product navigates to the detailed product page
+- **Pagination**: Built-in pagination support for large product catalogs
+- **Accessibility**: All product cards are properly labeled and focusable for screen readers
+
+### Technical Implementation
+
+- **API Integration**: Products are fetched from the Pawlu API with proper error handling
+- **State Management**: Loading, error, and data states are managed efficiently
+- **Memoization**: Product rendering is optimized with React.memo and useCallback
+- **Responsive Design**: Uses Tailwind CSS classes for consistent responsive behavior
+
 ## Product Detail Page
 
 The application includes a product detail page that displays comprehensive information about a product.
 
-- **Responsive Layout**: The page is fully responsive, with a two-column layout on web and a single-column layout on mobile.
-- **Image Gallery**: A gallery with a main image and thumbnails allows users to view multiple product images.
-- **Variant Selection**: Users can select product variants such as color and size. The available options are dynamically rendered based on the product data.
-- **Quantity Selection**: A quantity selector allows users to choose how many items they want to add to the cart.
-- **Accessibility**: All interactive elements on the page have accessibility props to ensure a good user experience with screen readers.
+### Key Features
+
+- **Responsive Layout**:
+  - Mobile: Single-column layout optimized for mobile viewing
+  - Web: Two-column layout with image gallery on the left and product info on the right
+- **Image Gallery**:
+  - Main product image display
+  - Thumbnail navigation for multiple product images
+  - Smooth image switching with accessibility support
+- **Product Information**:
+  - Product title and description
+  - Dynamic pricing display
+  - Variant selection (color, size, etc.)
+  - Quantity selector with increment/decrement controls
+- **Interactive Elements**:
+  - "Add to Cart" functionality with success/error feedback
+  - Wishlist button
+  - Social media sharing buttons
+- **Accessibility**: All interactive elements have proper accessibility labels and hints
+
+### Technical Implementation
+
+- **Dynamic Variant Selection**: Product variants are dynamically rendered based on available options
+- **Cart Integration**: Seamless integration with the shopping cart system
+- **Form Validation**: Ensures all required options are selected before adding to cart
+- **Responsive Design**: Optimized layouts for both mobile and web platforms
 
 ## Cart Persistence
 
 The shopping cart state is persisted across application sessions.
 
-- **Context API**: The cart is managed using React's Context API, making the cart state available throughout the application.
-- **AsyncStorage & localStorage**: On mobile, the cart data is saved to `AsyncStorage`. On the web, `localStorage` is used. This ensures that the user's cart is not lost when they close and reopen the application.
+- **Context API**: The cart is managed using React's Context API, making the cart state available throughout the application
+- **Cross-Platform Storage**:
+  - Mobile: Cart data is saved to `AsyncStorage`
+  - Web: Cart data is saved to `localStorage`
+- **Session Persistence**: Cart items persist when the user closes and reopens the application
+- **Real-time Updates**: Cart updates are immediately reflected across all components
+
+## Testing
+
+The application includes comprehensive unit tests for core functionality:
+
+### Cart Logic Tests
+
+- Adding new items to cart
+- Updating quantities of existing items
+- Loading cart from storage
+- Saving cart to storage
+
+### Product Listing Tests
+
+- Product data fetching
+- Loading and error state handling
+- Pagination functionality
+- Product rendering
+
+### Component Tests
+
+- ProductCard component rendering
+- Accessibility props validation
+- Image handling with different types
+- Responsive behavior
+
+### Running Tests
+
+```bash
+npm test
+```
+
+## Accessibility
+
+The application is built with accessibility in mind:
+
+- **Screen Reader Support**: All interactive elements have proper accessibility labels and hints
+- **Keyboard Navigation**: All components support keyboard navigation
+- **Focus Management**: Proper focus indicators and management
+- **Semantic HTML**: Uses appropriate ARIA roles and states
+- **Color Contrast**: Ensures sufficient color contrast for readability
+
+## API Integration
+
+The application integrates with the Pawlu API for product data:
+
+- **Product Listing**: Fetches paginated product lists
+- **Product Details**: Retrieves detailed product information including variants
+- **Error Handling**: Comprehensive error handling for network issues
+- **Loading States**: Proper loading indicators during API calls
