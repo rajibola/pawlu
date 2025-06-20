@@ -15,8 +15,8 @@ export function Header() {
       <View className="relative">
         <Cart />
         {cartItemCount > 0 && (
-          <View className="absolute -top-1 -right-1 bg-yellow-400 rounded-full w-4 h-4 items-center justify-center border border-white">
-            <Text className="text-xs font-bold text-black">
+          <View className="absolute px-1 -top-1 -right-1 bg-yellow-400 rounded-full min-w-3 h-3 items-center justify-center">
+            <Text className="text-[8px] font-bold text-black">
               {cartItemCount}
             </Text>
           </View>
