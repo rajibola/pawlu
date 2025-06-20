@@ -33,10 +33,10 @@ export default function ProductImageGallery({
 
   return (
     <View className={`w-full ${isWeb ? "p-4" : ""}`}>
-      <View className="mb-4 border border-gray-200 rounded-xl px-[49px] py-[66px]">
+      <View className="mb-4">
         <Image
           source={{ uri: selectedImage }}
-          className="h-64 rounded-lg"
+          className="w-full h-64 rounded-lg"
           resizeMode="contain"
           accessibilityLabel="Main product image"
         />
@@ -50,7 +50,7 @@ export default function ProductImageGallery({
           <TouchableOpacity
             key={index}
             onPress={() => setSelectedImage(image.url)}
-            className={`w-20 h-20 rounded-xl mr-2 border ${
+            className={`w-20 h-20 rounded-md mr-2 border ${
               selectedImage === image.url
                 ? "border-[#FFD36C]"
                 : "border-gray-200"
@@ -60,7 +60,7 @@ export default function ProductImageGallery({
           >
             <Image
               source={{ uri: image.url }}
-              className="w-full h-full rounded-xl"
+              className="w-full h-full rounded-md"
               resizeMode="cover"
             />
           </TouchableOpacity>

@@ -21,10 +21,10 @@ export function useProductPage() {
     product.product_variants.forEach((variant: ProductVariant) => {
       if (variant.variant_type_options) {
         variant.variant_type_options.forEach((ov) => {
-          if (!allOptions[ov.option_id]) {
-            allOptions[ov.option_id] = {
-              id: ov.option_id,
-              name: ov.name,
+          if (!allOptions[ov.variant_type.id]) {
+            allOptions[ov.variant_type.id] = {
+              id: ov.variant_type.id,
+              name: ov.variant_type.name,
               option_values: [],
             };
           }
@@ -38,8 +38,12 @@ export function useProductPage() {
       product.product_variants.forEach((variant: ProductVariant) => {
         if (variant.variant_type_options) {
           variant.variant_type_options.forEach((ov) => {
-            if (ov.option_id === opt.id && !seenValues.has(ov.id)) {
-              values.push(ov);
+            if (ov.variant_type.id === opt.id && !seenValues.has(ov.id)) {
+              values.push({
+                id: ov.id,
+                name: ov.value,
+                value: ov.value,
+              });
               seenValues.add(ov.id);
             }
           });
@@ -62,7 +66,8 @@ export function useProductPage() {
       (variant: ProductVariant) =>
         Object.entries(selectedOptions).every(([optionId, valueId]) =>
           variant.variant_type_options.some(
-            (ov) => ov.id === valueId && ov.option_id === parseInt(optionId)
+            (ov) =>
+              ov.id === valueId && ov.variant_type.id === parseInt(optionId)
           )
         )
     );

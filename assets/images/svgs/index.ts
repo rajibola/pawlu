@@ -1,4 +1,6 @@
 export { Cart } from "./Cart";
+export { default as ChevronDown } from "./ChevronDown";
+export { default as ChevronUp } from "./ChevronUp";
 export { Facebook } from "./Facebook";
 export { Heart } from "./Heart";
 export { Instagram } from "./Instagram";

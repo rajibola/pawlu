@@ -1,4 +1,10 @@
-import { Facebook, Heart, Instagram } from "@/assets/images/svgs";
+import {
+  ChevronDown,
+  ChevronUp,
+  Facebook,
+  Heart,
+  Instagram,
+} from "@/assets/images/svgs";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import { useProductPage } from "@/hooks/useProductPage";
 import { Footer } from "@/shared/Footer";
@@ -7,6 +13,7 @@ import { OptionValue } from "@/types";
 import {
   ActivityIndicator,
   ScrollView,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -49,12 +56,12 @@ export default function ProductDetail() {
   }
 
   const renderVariantSelectors = () => (
-    <View className="space-y-6">
+    <View className="space-y-6 gap-8 mb-8">
       {options.map((option) => {
-        const isColorOption = option.name.toLowerCase() === "color";
+        const isColorOption = option.name?.toLowerCase() === "color";
         return (
           <View key={option.id}>
-            <InterText className="text-sm font-medium text-gray-800 mb-3">
+            <InterText className="text-base font-medium text-[#667085] mb-3">
               {option.name}
             </InterText>
             <View className="flex-row flex-wrap gap-3">
@@ -68,7 +75,7 @@ export default function ProductDetail() {
                       className={`w-8 h-8 rounded-full border-1 justify-center items-center ${
                         isSelected ? "border-[#FFD36C]" : "border-transparent"
                       }`}
-                      style={{ backgroundColor: value.value }}
+                      style={{ backgroundColor: value.value.toLowerCase() }}
                     />
                   );
                 }
@@ -78,13 +85,13 @@ export default function ProductDetail() {
                     onPress={() => handleOptionSelect(option.id, value.id)}
                     className={`px-5 py-2.5 rounded-lg border ${
                       isSelected
-                        ? "bg-[#FFD36C] border-[#FFD36C]"
+                        ? "bg-[#FFCA4E] border-[#FFCA4E]"
                         : "bg-white border-gray-300"
                     }`}
                   >
                     <InterText
                       className={`text-sm font-medium ${
-                        isSelected ? "text-white" : "text-gray-800"
+                        isSelected ? "text-[#1F2D68]" : "text-[#101828]"
                       }`}
                     >
                       {value.name}
@@ -104,22 +111,34 @@ export default function ProductDetail() {
       <InterText className="text-base font-medium text-[#667085] mb-3">
         Quantity
       </InterText>
-      <View className="flex-row items-center border border-gray-300 rounded-lg self-start">
-        <TouchableOpacity
-          onPress={() => setQuantity((q) => Math.max(1, q - 1))}
-          className="px-4 py-3"
-        >
-          <InterText className="text-xl text-gray-500">-</InterText>
-        </TouchableOpacity>
-        <InterText className="text-base font-medium text-gray-800 px-4">
-          {quantity}
-        </InterText>
-        <TouchableOpacity
-          onPress={() => setQuantity((q) => q + 1)}
-          className="px-4 py-3"
-        >
-          <InterText className="text-xl text-gray-500">+</InterText>
-        </TouchableOpacity>
+      <View className="flex-row items-center border border-gray-300 rounded-lg w-32">
+        <TextInput
+          className="flex-1 h-11 text-center text-base text-gray-900"
+          value={String(quantity)}
+          onChangeText={(text) => {
+            const num = parseInt(text.replace(/[^0-9]/g, ""), 10);
+            if (!isNaN(num)) {
+              setQuantity(num);
+            } else if (text === "") {
+              setQuantity(0);
+            }
+          }}
+          keyboardType="numeric"
+        />
+        <View className="pr-4">
+          <TouchableOpacity
+            onPress={() => setQuantity(quantity + 1)}
+            className="p-1"
+          >
+            <ChevronUp />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
+            className="p-1"
+          >
+            <ChevronDown />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -166,7 +185,7 @@ export default function ProductDetail() {
   return (
     <View className="flex-1 bg-white">
       <ScrollView>
-        <View className="w-full mx-4">
+        <View className="w-full px-4">
           <ProductImageGallery images={product.media} />
         </View>
         <View className="w-full">

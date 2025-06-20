@@ -7,7 +7,10 @@ export type OptionValue = {
   id: number;
   name: string;
   value: string;
-  option_id: number;
+  variant_type: {
+    id: number;
+    name: string;
+  };
 };
 
 export type Option = {
