@@ -57,7 +57,7 @@ export default function ProductDetailWeb() {
   }
 
   const renderVariantSelectors = () => (
-    <View className="space-y-6 gap-8 mb-8">
+    <View className="gap-11">
       {options.map((option) => {
         const isColorOption = option.name?.toLowerCase() === "color";
         return (
@@ -86,7 +86,7 @@ export default function ProductDetailWeb() {
                   <TouchableOpacity
                     key={value.id}
                     onPress={() => handleOptionSelect(option.id, value.id)}
-                    className={`px-5 py-2.5 rounded-lg border ${isSelected ? "bg-[#FFCA4E] border-[#FFCA4E]" : "bg-white border-gray-300"}`}
+                    className={`w-[80px] h-[48px] flex items-center justify-center rounded-[4px] border ${isSelected ? "bg-[#FFCA4E] border-[#FFCA4E]" : "bg-white border-gray-300"}`}
                   >
                     <InterText
                       className={`text-sm font-medium ${isSelected ? "text-[#1F2D68]" : "text-[#101828]"}`}
@@ -104,7 +104,7 @@ export default function ProductDetailWeb() {
   );
 
   const renderQuantitySelector = () => (
-    <View>
+    <View className="mt-11">
       <InterText className="text-base font-medium text-[#667085] mb-3">
         Quantity
       </InterText>
@@ -141,7 +141,7 @@ export default function ProductDetailWeb() {
   );
 
   const ProductInfo = () => (
-    <View className="w-full space-y-6 mt-10">
+    <View className="w-full mt-10">
       <View>
         <InterText className="text-2xl font-semibold text-[#101828]">
           {product.title}
@@ -154,21 +154,19 @@ export default function ProductDetailWeb() {
         {product.description}
       </InterText>
       {options.length > 0 && renderVariantSelectors()}
-      <View>
-        {renderQuantitySelector()}
-        <View className="flex-row items-center gap-2 mt-[87px]">
-          <TouchableOpacity
-            onPress={handleAddToCart}
-            className="flex-1 bg-[#2E439C] rounded-lg h-14 items-center justify-center max-w-[360px]"
-          >
-            <InterText className="text-white text-center font-bold text-base">
-              Add to bag
-            </InterText>
-          </TouchableOpacity>
-          <TouchableOpacity className="bg-[#FFF4DC] rounded-lg h-14 w-14 items-center justify-center">
-            <Heart />
-          </TouchableOpacity>
-        </View>
+      {renderQuantitySelector()}
+      <View className="flex-row items-center gap-2 mt-[87px]">
+        <TouchableOpacity
+          onPress={handleAddToCart}
+          className="flex-1 bg-[#2E439C] rounded-lg h-14 items-center justify-center max-w-[360px]"
+        >
+          <InterText className="text-white text-center font-bold text-base">
+            Add to bag
+          </InterText>
+        </TouchableOpacity>
+        <TouchableOpacity className="bg-[#FFF4DC] rounded-lg h-14 w-14 items-center justify-center">
+          <Heart />
+        </TouchableOpacity>
       </View>
       <View className="flex-row space-x-4 items-center">
         <TouchableOpacity>
@@ -184,7 +182,7 @@ export default function ProductDetailWeb() {
   return (
     <View className="flex-1 bg-white">
       <ScrollView>
-        <View className="flex-1 flex-row px-[47px] gap-[58px] mb-[86px]">
+        <View className="flex-1 flex-row px-[47px] gap-[58px] mb-[86px] mt-[76px]">
           <View className="w-[484px]">
             <ProductImageGallery images={product.media} />
           </View>
