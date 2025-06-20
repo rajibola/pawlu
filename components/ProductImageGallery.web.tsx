@@ -1,12 +1,6 @@
 import { ProductMedia } from "@/types";
 import React, { useState } from "react";
-import {
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 
 type ProductImageGalleryProps = {
   images: ProductMedia[];
@@ -16,8 +10,6 @@ export default function ProductImageGallery({
   images,
 }: ProductImageGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(images[0]?.url);
-  const { width } = useWindowDimensions();
-  const isWeb = width > 768;
 
   if (!images || images.length === 0) {
     return (
@@ -32,11 +24,11 @@ export default function ProductImageGallery({
   }
 
   return (
-    <View className={`w-full ${isWeb ? "p-4" : ""}`}>
-      <View className="mb-4">
+    <View className={`w-full`}>
+      <View className="mb-4 max-w-[484px] h-[500px] border border-gray-200 rounded-xl px-[74px] py-[126px]">
         <Image
           source={{ uri: selectedImage }}
-          className="w-full h-64 rounded-lg"
+          className="w-full h-full rounded-lg"
           resizeMode="contain"
           accessibilityLabel="Main product image"
         />
