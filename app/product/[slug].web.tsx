@@ -108,9 +108,9 @@ export default function ProductDetailWeb() {
       <InterText className="text-base font-medium text-[#667085] mb-3">
         Quantity
       </InterText>
-      <View className="flex-row items-center border border-gray-300 rounded-lg w-32">
+      <View className="flex-row items-center border border-gray-300 rounded-lg w-[208px]">
         <TextInput
-          className="flex-1 h-11 text-center text-base text-gray-900"
+          className="flex-1 h-12 text-center text-base text-gray-900"
           value={String(quantity)}
           onChangeText={(text) => {
             const num = parseInt(text.replace(/[^0-9]/g, ""), 10);
@@ -122,7 +122,7 @@ export default function ProductDetailWeb() {
           }}
           keyboardType="numeric"
         />
-        <View className="pr-4">
+        <View className="pr-4 flex items-center justify-between">
           <TouchableOpacity
             onPress={() => setQuantity(quantity + 1)}
             className="p-1"
