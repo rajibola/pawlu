@@ -6,14 +6,19 @@ import InterText from "../shared/InterText";
 interface QuantitySelectorProps {
   quantity: number;
   setQuantity: (quantity: number) => void;
+  accessibilityLabel?: string;
 }
 
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   quantity,
   setQuantity,
+  accessibilityLabel,
 }) => {
   return (
-    <View>
+    <View
+      accessibilityLabel={accessibilityLabel}
+      accessible={!!accessibilityLabel}
+    >
       <InterText className="text-base font-medium text-[#667085] mb-3">
         Quantity
       </InterText>

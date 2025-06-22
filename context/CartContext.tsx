@@ -1,4 +1,5 @@
 import { Product, ProductVariant } from "@/types";
+import { getNumericPrice } from "@/utils/price";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Platform } from "react-native";
@@ -12,12 +13,18 @@ export interface CartItem {
 interface CartContextType {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
+  updateQuantity: (variantId: number, quantity: number) => void;
+  removeFromCart: (variantId: number) => void;
+  getCartTotal: () => number;
   loading: boolean;
 }
 
 const CartContext = createContext<CartContextType>({
   cart: [],
   addToCart: () => {},
+  updateQuantity: () => {},
+  removeFromCart: () => {},
+  getCartTotal: () => 0,
   loading: true,
 });
 
@@ -86,8 +93,39 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  const updateQuantity = (variantId: number, quantity: number) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.variant.id === variantId ? { ...item, quantity } : item
+      )
+    );
+  };
+
+  const removeFromCart = (variantId: number) => {
+    setCart((prevCart) =>
+      prevCart.filter((item) => item.variant.id !== variantId)
+    );
+  };
+
+  const getCartTotal = () => {
+    return cart.reduce(
+      (total, item) =>
+        total + getNumericPrice(item.variant.price.formatted) * item.quantity,
+      0
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, loading }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        loading,
+        updateQuantity,
+        removeFromCart,
+        getCartTotal,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

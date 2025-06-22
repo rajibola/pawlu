@@ -169,3 +169,26 @@ The application integrates with the Pawlu API for product data:
 - **Product Details**: Retrieves detailed product information including variants
 - **Error Handling**: Comprehensive error handling for network issues
 - **Loading States**: Proper loading indicators during API calls
+
+## Cart Management
+
+The application provides a fully-featured shopping cart page where users can review and manage their selected items before proceeding to checkout.
+
+### Key Features
+
+- **Responsive Layout**:
+  - **Mobile**: A single-column list of cart items with a summary panel fixed at the bottom.
+  - **Web**: A two-column layout with the item list on the left and a sticky summary card on the right.
+- **Item Management**:
+  - **Update Quantity**: Users can easily increase or decrease the quantity of each item in the cart.
+  - **Remove Item**: Items can be removed from the cart with a single click/tap.
+- **Dynamic Calculations**: The cart summary automatically recalculates the subtotal and total as quantities change.
+- **Empty Cart**: A user-friendly message is displayed when the cart is empty, guiding the user to continue shopping.
+- **Accessibility**: All interactive controls for managing the cart are fully accessible with proper labels and roles for screen readers.
+
+### Technical Implementation
+
+- **State Management**: The cart's state is centrally managed using `CartContext`, providing all necessary data and actions (`updateQuantity`, `removeFromCart`).
+- **Live Updates**: The UI instantly reflects any changes made to the cart without requiring a page reload.
+- **Component-Based Architecture**: The feature is built with reusable components like `CartListItem` and `CartSummary` for both mobile and web platforms.
+- **Cross-Platform Persistence**: Cart state is saved to `AsyncStorage` (mobile) or `localStorage` (web), ensuring items remain in the cart across sessions.
