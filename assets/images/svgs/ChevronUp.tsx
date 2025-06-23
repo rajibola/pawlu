@@ -2,8 +2,8 @@ import React from "react";
 import { SvgXml } from "react-native-svg";
 
 const xml = `
-<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11 6L6 1L1 6" stroke="#667085" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11 6.5L6 1.5L1 6.5" stroke="#667085" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 `;
 
