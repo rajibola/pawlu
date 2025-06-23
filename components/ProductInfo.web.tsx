@@ -5,16 +5,17 @@ import { Product } from "../types";
 
 interface ProductInfoProps {
   product: Product;
+  price: string;
 }
 
-const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
+const ProductInfo: React.FC<ProductInfoProps> = ({ product, price }) => {
   return (
     <View>
       <InterText className="text-2xl font-semibold text-[#101828]">
         {product.title}
       </InterText>
       <InterText className="text-2xl font-semibold text-[#2E439C] mt-2">
-        {product.product_variants[0]?.price.formatted}
+        {price}
       </InterText>
       <InterText className="text-base text-[#344054] leading-relaxed mb-12">
         {product.description}

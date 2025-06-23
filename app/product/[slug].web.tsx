@@ -18,6 +18,7 @@ export default function ProductDetailWeb() {
     selectedOptions,
     handleOptionSelect,
     handleAddToCart,
+    price,
   } = useProductPage();
 
   if (loading) {
@@ -52,7 +53,7 @@ export default function ProductDetailWeb() {
             <ProductImageGallery images={product.media} />
           </View>
           <View className="max-w-[542px]">
-            <ProductInfo product={product} />
+            <ProductInfo product={product} price={price} />
             {options.length > 0 && (
               <VariantSelector
                 options={options}

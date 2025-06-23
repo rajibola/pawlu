@@ -2,7 +2,7 @@ import { useCart } from "@/context/CartContext";
 import useProductDetail from "@/hooks/useProductDetail";
 import { Option, ProductVariant } from "@/types";
 import { useLocalSearchParams } from "expo-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Alert } from "react-native";
 
 export function useProductPage() {
@@ -11,9 +11,16 @@ export function useProductPage() {
   const { addToCart } = useCart();
 
   const [quantity, setQuantity] = useState(1);
+  const [price, setPrice] = useState("");
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, number>
   >({});
+
+  useEffect(() => {
+    if (product && product.product_variants.length > 0) {
+      setPrice(product.product_variants[0].price.formatted);
+    }
+  }, [product]);
 
   const options = useMemo(() => {
     if (!product || !product.product_variants) return [];
@@ -55,22 +62,48 @@ export function useProductPage() {
     return finalOptions;
   }, [product]);
 
+  const selectedVariant = useMemo(() => {
+    if (!product) return null;
+
+    const allOptionsSelected =
+      options.length > 0 &&
+      Object.keys(selectedOptions).length === options.length;
+
+    if (!allOptionsSelected && options.length > 0) {
+      return null;
+    }
+
+    if (
+      Object.keys(selectedOptions).length === 0 &&
+      product.product_variants.length > 0 &&
+      options.length > 0
+    ) {
+      return null;
+    }
+
+    const variant = product.product_variants.find((variant: ProductVariant) =>
+      Object.entries(selectedOptions).every(([optionId, valueId]) =>
+        variant.variant_type_options.some(
+          (ov) => ov.id === valueId && ov.variant_type.id === parseInt(optionId)
+        )
+      )
+    );
+
+    return variant || product.product_variants[0];
+  }, [product, selectedOptions, options]);
+
+  useEffect(() => {
+    if (selectedVariant) {
+      setPrice(selectedVariant.price.formatted);
+    }
+  }, [selectedVariant]);
+
   const handleOptionSelect = (optionId: number, valueId: number) => {
     setSelectedOptions((prev) => ({ ...prev, [optionId]: valueId }));
   };
 
   const handleAddToCart = () => {
     if (!product) return;
-
-    const selectedVariant = product.product_variants.find(
-      (variant: ProductVariant) =>
-        Object.entries(selectedOptions).every(([optionId, valueId]) =>
-          variant.variant_type_options.some(
-            (ov) =>
-              ov.id === valueId && ov.variant_type.id === parseInt(optionId)
-          )
-        )
-    );
 
     if (options.length > 0 && !selectedVariant) {
       Alert.alert("Please select all options");
@@ -97,5 +130,6 @@ export function useProductPage() {
     selectedOptions,
     handleOptionSelect,
     handleAddToCart,
+    price,
   };
 }
