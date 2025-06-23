@@ -21,7 +21,7 @@ export default function CartScreenWeb() {
 
   return (
     <ScrollView>
-      <View className="flex-1 px-11 mt-[54px]">
+      <View className="flex-1 px-11 mt-[54px] mb-[86px]">
         <Text className="text-2xl font-semibold mb-6">My Cart</Text>
         {cart.length > 0 ? (
           <View className="flex-row gap-[17px] items-start">
@@ -142,8 +142,10 @@ export default function CartScreenWeb() {
             </View>
           </View>
         ) : (
-          <View className="p-12 rounded-lg items-center">
-            <Text className="text-xl text-gray-600">Your cart is empty.</Text>
+          <View className="items-center justify-center min-h-screen">
+            <InterText className="text-xl text-gray-600">
+              Your cart is empty.
+            </InterText>
           </View>
         )}
       </View>
