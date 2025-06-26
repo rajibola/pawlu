@@ -1,18 +1,16 @@
+import CancelIcon from "@/assets/images/svgs/Cancel";
 import { CartItem, useCart } from "@/context/CartContext";
 import { getNumericPrice } from "@/utils/price";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import QuantitySelector from "./QuantitySelector";
-// Assuming you have an 'X' icon component
-// import { CloseIcon } from '@/assets/svgs';
-
-const CloseIcon = () => <Text className="font-bold text-lg">X</Text>;
+import QuantityInput from "./QuantityInput";
 
 type CartListItemProps = {
   item: CartItem;
+  isLast?: boolean;
 };
 
-export function CartListItem({ item }: CartListItemProps) {
+export function CartListItem({ item, isLast }: CartListItemProps) {
   const { updateQuantity, removeFromCart } = useCart();
   const { product, variant, quantity } = item;
 
@@ -29,39 +27,51 @@ export function CartListItem({ item }: CartListItemProps) {
     product.media?.[0]?.url ||
     "https://via.placeholder.com/150";
 
-  const variantName = variant.variant_type_options
-    .map((v) => v.name)
-    .join(" | ");
+  const variantName = Array.isArray(variant.variant_type_options)
+    ? variant.variant_type_options
+        .map((v) => v?.name?.trim())
+        .filter(Boolean)
+        .join(" | ")
+    : "";
   const itemTotal = getNumericPrice(variant.price.formatted) * quantity;
 
   return (
-    <View className="border border-gray-200 rounded-lg p-4 mb-4 bg-white shadow">
-      <View className="flex-row items-start">
-        <Image source={{ uri: image }} className="w-20 h-20 rounded-md" />
-        <View className="ml-4 flex-1">
-          <Text className="font-bold text-base">{product.title}</Text>
-          <Text className="text-gray-600 text-sm">{variantName}</Text>
-          <Text className="font-semibold text-base mt-1">
+    <View
+      className={`rounded-lg mx-4 py-5 bg-white relative ${!isLast ? "border-b border-gray-200" : ""}`}
+    >
+      <TouchableOpacity
+        onPress={handleRemove}
+        accessibilityRole="button"
+        accessibilityLabel="Remove item"
+        accessibilityHint={`Removes ${product.title} from your cart`}
+        className="absolute top-2 right-2 z-10 w-6 h-6 items-center justify-center"
+      >
+        <CancelIcon />
+      </TouchableOpacity>
+
+      {/* Main content */}
+      <View className="flex-row items-center pr-8">
+        {/* Product image */}
+        <Image source={{ uri: image }} className="w-16 h-16 rounded-md" />
+
+        {/* Product details */}
+        <View className="flex-1 px-4">
+          <Text className="font-medium text-sm" numberOfLines={2}>
+            {product.title}
+          </Text>
+          <Text className="font-semibold text-sm mt-1">
             {variant.price.formatted}
           </Text>
+          {variantName ? (
+            <Text className="text-[#667085] text-xs mt-1">{variantName}</Text>
+          ) : null}
         </View>
-        <TouchableOpacity
-          onPress={handleRemove}
-          accessibilityRole="button"
-          accessibilityLabel="Remove item"
-          accessibilityHint={`Removes ${product.title} from your cart`}
-        >
-          <CloseIcon />
-        </TouchableOpacity>
       </View>
-      <View className="flex-row justify-between items-center mt-4">
-        <QuantitySelector
-          quantity={quantity}
-          setQuantity={handleUpdateQuantity}
-          accessibilityLabel={`Quantity for ${product.title}`}
-        />
+
+      <View className="flex-row justify-between items-center mt-3 pt-2">
+        <QuantityInput quantity={quantity} setQuantity={handleUpdateQuantity} />
         <Text
-          className="font-bold text-lg"
+          className="font-bold text-base text-[#2E439C]"
           accessibilityLabel={`Total for ${product.title}`}
         >
           €{itemTotal.toFixed(2)}
