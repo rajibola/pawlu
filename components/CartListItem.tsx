@@ -22,10 +22,14 @@ export function CartListItem({ item, isLast }: CartListItemProps) {
     removeFromCart(variant.id);
   };
 
-  const image =
-    product.media?.find((m) => m.url)?.conversions?.["medium-square"] ||
-    product.media?.[0]?.url ||
-    "https://via.placeholder.com/150";
+  let imageSource: any = null;
+  if (product.media && product.media.length > 0) {
+    imageSource = product.media[0].conversions?.["medium-square"]
+      ? { uri: product.media[0].conversions["medium-square"] }
+      : { uri: product.media[0].url };
+  } else {
+    imageSource = require("@/assets/images/logo.png");
+  }
 
   const variantName = Array.isArray(variant.variant_type_options)
     ? variant.variant_type_options
@@ -49,12 +53,13 @@ export function CartListItem({ item, isLast }: CartListItemProps) {
         <CancelIcon />
       </TouchableOpacity>
 
-      {/* Main content */}
       <View className="flex-row items-center pr-8">
-        {/* Product image */}
-        <Image source={{ uri: image }} className="w-16 h-16 rounded-md" />
+        <Image
+          source={imageSource}
+          className="w-16 h-16 rounded-md"
+          resizeMode="contain"
+        />
 
-        {/* Product details */}
         <View className="flex-1 px-4">
           <Text className="font-medium text-sm" numberOfLines={2}>
             {product.title}
