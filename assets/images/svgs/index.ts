@@ -8,4 +8,6 @@ export { Logo } from "./Logo";
 export { Next } from "./Next";
 export { Previous } from "./Previous";
 export { ShoppingBag } from "./ShoppingBag";
+export { Store } from "./Store";
+export { Truck } from "./Truck";
 export { Twine } from "./Twine";

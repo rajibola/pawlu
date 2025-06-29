@@ -1,5 +1,6 @@
 import { useCart } from "@/context/CartContext";
 import InterText from "@/shared/InterText";
+import { useRouter } from "expo-router";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
@@ -12,11 +13,18 @@ const InfoRow = ({ label, value }: { label: string; value: string }) => (
 
 export function CartSummary() {
   const { getCartTotal } = useCart();
+  const router = useRouter();
 
   const subtotal = getCartTotal();
   const shipping = 2.5;
   const tax = subtotal * 0.05;
   const total = subtotal + shipping + tax;
+
+  const handleCheckout = () => {
+    if (typeof window !== "undefined" && router) {
+      router.push("/checkout");
+    }
+  };
 
   return (
     <View className="bg-[#F9FAFB] p-8 rounded-lg mt-4">
@@ -41,6 +49,7 @@ export function CartSummary() {
         accessibilityRole="button"
         accessibilityLabel="Proceed to checkout"
         accessibilityState={{ disabled: subtotal === 0 }}
+        onPress={subtotal > 0 ? handleCheckout : undefined}
       >
         <InterText className="text-white font-semibold text-lg">
           Checkout

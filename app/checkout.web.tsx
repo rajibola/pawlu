@@ -1,0 +1,167 @@
+import { Store } from "@/assets/images/svgs/Store";
+import { Truck } from "@/assets/images/svgs/Truck";
+import { CartSummary } from "@/components/CartSummary";
+import TextInput from "@/components/TextInput.web";
+import { Footer } from "@/shared/Footer";
+import InterText from "@/shared/InterText";
+import React, { useState } from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+
+export default function CheckoutWeb() {
+  const [deliveryMethod, setDeliveryMethod] = useState<"ship" | "pickup">(
+    "ship"
+  );
+  return (
+    <ScrollView>
+      <View className="flex flex-row gap-[111px] px-11">
+        <View className="flex-1 mt-[54px] mb-[86px] max-w-auto">
+          <Text className="text-2xl font-semibold mb-6">Billing Details</Text>
+          <View className="grid grid-cols-2 gap-6 mb-8">
+            <TextInput
+              label="First name"
+              placeholder="Enter your first name"
+              value=""
+              onChange={() => {}}
+              name="firstName"
+            />
+            <TextInput
+              label="Last name"
+              placeholder="Enter your last name"
+              value=""
+              onChange={() => {}}
+              name="lastName"
+            />
+          </View>
+          <View className="mb-8">
+            <TextInput
+              label="Company"
+              placeholder="Enter your company name"
+              value=""
+              onChange={() => {}}
+              name="company"
+            />
+            <TextInput
+              label="VAT number"
+              placeholder="Enter your VAT number"
+              value=""
+              onChange={() => {}}
+              name="vatNumber"
+            />
+            <TextInput
+              label="Phone number"
+              placeholder="012334455"
+              value=""
+              onChange={() => {}}
+              name="phoneNumber"
+            />
+            <View className="mb-4">
+              <InterText className="block text-sm font-semibold text-[#344054] mb-2">
+                Country
+              </InterText>
+              <View className="border rounded-lg p-3 w-full border-gray-200 bg-white">
+                <Text className="text-[#344054]">Malta</Text>
+              </View>
+            </View>
+            <TextInput
+              label="Address line 1"
+              placeholder="House number and street name"
+              value=""
+              onChange={() => {}}
+              name="address1"
+            />
+            <TextInput
+              label="Address line 2"
+              placeholder="House number and street name"
+              value=""
+              onChange={() => {}}
+              name="address2"
+            />
+            <View className="grid grid-cols-3 gap-4">
+              <TextInput
+                label="City"
+                placeholder="City"
+                value=""
+                onChange={() => {}}
+                name="city"
+              />
+              <TextInput
+                label="State"
+                placeholder="State"
+                value=""
+                onChange={() => {}}
+                name="state"
+              />
+              <TextInput
+                label="Zip Code"
+                placeholder="Zip code"
+                value=""
+                onChange={() => {}}
+                name="zipCode"
+              />
+            </View>
+          </View>
+          <Text className="text-xl font-semibold mb-4">Delivery</Text>
+          <View className="bg-white border border-gray-200 rounded-xl overflow-hidden mb-2 px-8">
+            <TouchableOpacity
+              className="flex-row items-center py-5"
+              onPress={() => setDeliveryMethod("ship")}
+            >
+              <View
+                className={`w-4 h-4 rounded-full border-2 items-center justify-center mr-4 ${deliveryMethod === "ship" ? "border-[#AA8734]" : "border-[#D0D5DD]"}`}
+              >
+                {deliveryMethod === "ship" && (
+                  <View className="w-[6px] h-[6px] rounded-full bg-[#AA8734]" />
+                )}
+              </View>
+              <Text
+                className={`text-base font-semibold mr-auto ${deliveryMethod === "ship" ? "text-[#101828]" : "text-[#667085]"}`}
+              >
+                Ship
+              </Text>
+              <Truck
+                stroke={deliveryMethod === "ship" ? "#101828" : "#98A2B3"}
+              />
+            </TouchableOpacity>
+            <View className="border-t border-gray-200 m-0" />
+            <TouchableOpacity
+              className="flex-row items-center py-5"
+              onPress={() => setDeliveryMethod("pickup")}
+            >
+              <View
+                className={`w-4 h-4 rounded-full border-2 items-center justify-center mr-4 ${deliveryMethod === "pickup" ? "border-[#AA8734]" : "border-[#D0D5DD]"}`}
+              >
+                {deliveryMethod === "pickup" && (
+                  <View className="w-[6px] h-[6px] rounded-full bg-[#AA8734]" />
+                )}
+              </View>
+              <Text
+                className={`text-base font-semibold mr-auto ${deliveryMethod === "pickup" ? "text-[#101828]" : "text-[#667085]"}`}
+              >
+                Pickup in store
+              </Text>
+              <Store
+                stroke={deliveryMethod === "pickup" ? "#101828" : "#98A2B3"}
+              />
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity className="flex-row items-center mb-8 mt-2">
+            <View className="w-5 h-5 border-2 border-gray-300 rounded mr-2 bg-white" />
+            <Text className="text-sm font-semibold text-[#344054]">
+              Ship to a different address?
+            </Text>
+          </TouchableOpacity>
+          <button
+            className="w-full h-14 rounded-lg bg-gray-200 text-gray-500 font-semibold text-lg"
+            disabled
+          >
+            Pay now
+          </button>
+        </View>
+        <View className="w-[386px]">
+          <CartSummary />
+        </View>
+      </View>
+      <Footer />
+    </ScrollView>
+  );
+}
