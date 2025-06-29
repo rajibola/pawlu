@@ -13,10 +13,12 @@ export default function CheckoutWeb() {
   );
   return (
     <ScrollView>
-      <View className="flex flex-row gap-[111px] px-11">
-        <View className="flex-1 mt-[54px] mb-[86px] max-w-auto">
-          <Text className="text-2xl font-semibold mb-6">Billing Details</Text>
-          <View className="grid grid-cols-2 gap-6 mb-8">
+      <View className="flex flex-row gap-[111px] px-11 mt-[84px]">
+        <View className="flex-1 mb-[86px] max-w-auto">
+          <InterText className="text-xl font-semibold mb-6">
+            Billing Details
+          </InterText>
+          <View className="grid grid-cols-2 gap-6">
             <TextInput
               label="First name"
               placeholder="Enter your first name"
@@ -100,8 +102,8 @@ export default function CheckoutWeb() {
               />
             </View>
           </View>
-          <Text className="text-xl font-semibold mb-4">Delivery</Text>
-          <View className="bg-white border border-gray-200 rounded-xl overflow-hidden mb-2 px-8">
+          <InterText className="text-xl font-semibold mb-6">Delivery</InterText>
+          <View className="bg-white border border-gray-200 rounded-xl overflow-hidden mb-8 px-8">
             <TouchableOpacity
               className="flex-row items-center py-5"
               onPress={() => setDeliveryMethod("ship")}
@@ -144,11 +146,11 @@ export default function CheckoutWeb() {
               />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity className="flex-row items-center mb-8 mt-2">
+          <TouchableOpacity className="flex-row items-center mb-[60px]">
             <View className="w-5 h-5 border-2 border-gray-300 rounded mr-2 bg-white" />
-            <Text className="text-sm font-semibold text-[#344054]">
+            <InterText className="text-sm font-semibold text-[#344054]">
               Ship to a different address?
-            </Text>
+            </InterText>
           </TouchableOpacity>
           <button
             className="w-full h-14 rounded-lg bg-gray-200 text-gray-500 font-semibold text-lg"
@@ -158,7 +160,7 @@ export default function CheckoutWeb() {
           </button>
         </View>
         <View className="w-[386px]">
-          <CartSummary />
+          <CartSummary isCheckout />
         </View>
       </View>
       <Footer />
