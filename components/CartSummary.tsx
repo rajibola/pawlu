@@ -3,12 +3,12 @@ import { useCart } from "@/context/CartContext";
 import InterText from "@/shared/InterText";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 const InfoRow = ({ label, value }: { label: string; value: string }) => (
   <View className="flex-row justify-between items-center mb-2">
-    <Text className="text-gray-600">{label}</Text>
-    <Text className="font-semibold">{value}</Text>
+    <InterText className="text-gray-600">{label}</InterText>
+    <InterText className="font-semibold">{value}</InterText>
   </View>
 );
 
