@@ -120,6 +120,50 @@ The shopping cart state is persisted across application sessions.
 - **Session Persistence**: Cart items persist when the user closes and reopens the application
 - **Real-time Updates**: Cart updates are immediately reflected across all components
 
+## State Management & Error Handling
+
+### Cart State Persistence
+
+- The cart is managed globally using React Context (`CartContext`).
+- Cart state is automatically saved to persistent storage:
+  - **Web:** Uses `localStorage`.
+  - **Mobile:** Uses `AsyncStorage`.
+- On app start, the cart is loaded from storage, ensuring items persist across sessions.
+- All cart actions (add, update, remove) update both in-memory state and persistent storage.
+
+### Global Error Handling
+
+- All API calls are wrapped with a global error handler using the `useApiWithErrorContext` utility.
+- Errors from API calls are set in a global error context (`ErrorContext`).
+- Any component can access or clear the global error using the `useError` hook.
+
+### Reusable Error Component
+
+- The `ErrorMessage` component displays global errors to the user.
+- It supports a "Retry" button to re-attempt failed actions, and a "Dismiss" button to clear the error.
+- The component is accessible, using ARIA roles and labels for screen readers.
+- Place `<ErrorMessage />` in your main layout or at the top of relevant screens/pages to ensure users always see important error feedback.
+
+### Example Usage
+
+```tsx
+import { useApiWithErrorContext } from "@/utils/withErrorContext";
+import { useError } from "@/context/ErrorContext";
+import ErrorMessage from "@/components/ErrorMessage";
+
+const apiWithError = useApiWithErrorContext();
+const { clearError } = useError();
+
+const fetchData = () => apiWithError(() => fetchProducts());
+
+return (
+  <>
+    <ErrorMessage onRetry={fetchData} />
+    {/* ...rest of your UI... */}
+  </>
+);
+```
+
 ## Testing
 
 The application includes comprehensive unit tests for core functionality:
