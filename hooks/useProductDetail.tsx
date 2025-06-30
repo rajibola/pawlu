@@ -1,11 +1,14 @@
+import { useError } from "@/context/ErrorContext";
 import { Product } from "@/types";
+import { useApiWithErrorContext } from "@/utils/withErrorContext";
 import { useEffect, useState } from "react";
 import { fetchProductBySlug } from "../services/productService";
 
 export default function useProductDetail(slug: string) {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const apiWithError = useApiWithErrorContext();
+  const { clearError } = useError();
 
   useEffect(() => {
     if (!slug) return;
@@ -13,20 +16,13 @@ export default function useProductDetail(slug: string) {
     let isMounted = true;
     const loadProduct = async () => {
       setLoading(true);
-      setError(null);
-      try {
-        const productData = await fetchProductBySlug(slug);
-        if (isMounted) {
-          setProduct(productData);
-        }
-      } catch (e: any) {
-        if (isMounted) {
-          setError(e.message || "Failed to fetch product");
-        }
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+      clearError();
+      const productData = await apiWithError(() => fetchProductBySlug(slug));
+      if (isMounted && productData) {
+        setProduct(productData);
+      }
+      if (isMounted) {
+        setLoading(false);
       }
     };
 
@@ -37,5 +33,5 @@ export default function useProductDetail(slug: string) {
     };
   }, [slug]);
 
-  return { product, loading, error };
+  return { product, loading };
 }

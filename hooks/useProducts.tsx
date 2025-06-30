@@ -1,13 +1,11 @@
+import { useError } from "@/context/ErrorContext";
 import { PaginationMeta, Product } from "@/types";
+import { useApiWithErrorContext } from "@/utils/withErrorContext";
 import { Link } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import ProductCard from "../components/ProductCard";
-import {
-  fetchProducts,
-  formatProductForDisplay,
-  type ApiError,
-} from "../services";
+import { fetchProducts, formatProductForDisplay } from "../services";
 
 export type { PaginationMeta, Product };
 
@@ -15,25 +13,20 @@ export default function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [meta, setMeta] = useState<PaginationMeta | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [pageUrl, setPageUrl] = useState<string | null>(null);
+  const apiWithError = useApiWithErrorContext();
+  const { clearError } = useError();
 
   useEffect(() => {
     let isMounted = true;
     setLoading(true);
-    setError(null);
+    clearError();
 
-    fetchProducts(pageUrl || undefined)
+    apiWithError(() => fetchProducts(pageUrl || undefined))
       .then((response) => {
-        if (!isMounted) return;
+        if (!isMounted || !response) return;
         setProducts(response.data);
         setMeta(response.meta);
-      })
-      .catch((error: ApiError) => {
-        if (isMounted) {
-          setProducts([]);
-          setError(error.message);
-        }
       })
       .finally(() => {
         if (isMounted) setLoading(false);
@@ -74,7 +67,6 @@ export default function useProducts() {
   return {
     products,
     loading,
-    error,
     meta,
     handlePageChange,
     renderProduct,

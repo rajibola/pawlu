@@ -12,20 +12,14 @@ import Pagination from "./Pagination.web";
 import ProductCard from "./ProductCard.web";
 
 export default function Home() {
-  const { products, loading, error, meta, handlePageChange, apiUrl } =
-    useProducts();
-  const { error: globalError, setError, clearError } = useError();
+  const { products, loading, meta, handlePageChange, apiUrl } = useProducts();
+  const { error: globalError, clearError } = useError();
 
   // Retry handler for ErrorMessage
   const handleRetry = () => {
     clearError();
     handlePageChange(null); // reload first page
   };
-
-  // If there is a local error, set it globally
-  React.useEffect(() => {
-    if (error) setError(error);
-  }, [error, setError]);
 
   if (loading) {
     return (
@@ -40,58 +34,47 @@ export default function Home() {
     );
   }
 
-  if (error) {
-    return (
-      <View className="flex-1 flex-col w-screen justify-center items-center px-4">
-        <InterText className="text-lg font-semibold text-red-600 mb-2 text-center">
-          Error Loading Products
-        </InterText>
-        <InterText className="text-sm text-gray-600 text-center">
-          {error}
-        </InterText>
-      </View>
-    );
-  }
-
   return (
     <View className="flex-1 flex-col w-screen">
       <ErrorMessage onRetry={handleRetry} />
-      <ScrollView showsVerticalScrollIndicator={false} className="w-full">
-        {/* Header */}
-        <View className="px-11 mb-14">
-          <InterText className="font-semibold text-4xl mt-[72px] text-[#101828] text-center">
-            Rentals
-          </InterText>
-        </View>
+      {!globalError && (
+        <ScrollView showsVerticalScrollIndicator={false} className="w-full">
+          {/* Header */}
+          <View className="px-11 mb-14">
+            <InterText className="font-semibold text-4xl mt-[72px] text-[#101828] text-center">
+              Rentals
+            </InterText>
+          </View>
 
-        {/* Product Grid */}
-        <View className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 px-11">
-          {products.map((item: Product) => {
-            const formattedProduct = formatProductForDisplay(item);
-            return (
-              <Link href={`/product/${item.slug}`} key={item.id} asChild>
-                <Pressable style={{ minWidth: 286 }}>
-                  <ProductCard
-                    image={formattedProduct.image}
-                    name={formattedProduct.title}
-                    price={formattedProduct.price}
-                  />
-                </Pressable>
-              </Link>
-            );
-          })}
-        </View>
+          {/* Product Grid */}
+          <View className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 px-11">
+            {products.map((item: Product) => {
+              const formattedProduct = formatProductForDisplay(item);
+              return (
+                <Link href={`/product/${item.slug}`} key={item.id} asChild>
+                  <Pressable style={{ minWidth: 286 }}>
+                    <ProductCard
+                      image={formattedProduct.image}
+                      name={formattedProduct.title}
+                      price={formattedProduct.price}
+                    />
+                  </Pressable>
+                </Link>
+              );
+            })}
+          </View>
 
-        {/* Footer (Pagination) */}
-        <View className="flex-1 flex-col gap-[54px]">
-          <Pagination
-            meta={meta}
-            onPageChange={handlePageChange}
-            apiUrl={apiUrl || ""}
-          />
-          <Footer />
-        </View>
-      </ScrollView>
+          {/* Footer (Pagination) */}
+          <View className="flex-1 flex-col gap-[54px]">
+            <Pagination
+              meta={meta}
+              onPageChange={handlePageChange}
+              apiUrl={apiUrl || ""}
+            />
+            <Footer />
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 }
