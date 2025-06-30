@@ -11,6 +11,7 @@ interface TextInputProps {
   type?: string;
   error?: string;
   className?: string;
+  onBlur?: () => void;
 }
 
 export default function TextInput({
@@ -22,6 +23,7 @@ export default function TextInput({
   type = "text",
   error,
   className,
+  onBlur,
 }: TextInputProps) {
   return (
     <View>
@@ -37,6 +39,7 @@ export default function TextInput({
         value={value}
         onChangeText={onChange}
         accessibilityLabel={label}
+        onBlur={onBlur}
       />
       {error && (
         <InterText className="text-xs text-red-600 mt-1 block">

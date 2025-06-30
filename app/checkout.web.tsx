@@ -5,17 +5,86 @@ import Dropdown from "@/components/Dropdown";
 import TextInput from "@/components/TextInput.web";
 import { Footer } from "@/shared/Footer";
 import InterText from "@/shared/InterText";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 export default function CheckoutWeb() {
+  type FormType = {
+    firstName: string;
+    lastName: string;
+    company: string;
+    vat: string;
+    phone: string;
+    country: string;
+    address1: string;
+    address2: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  type ErrorsType = Partial<Record<keyof FormType, string>>;
+  type TouchedType = Partial<Record<keyof FormType, boolean>>;
+
   const [deliveryMethod, setDeliveryMethod] = useState<"ship" | "pickup">(
     "ship"
   );
-  const [country, setCountry] = useState("Malta");
-  const [state, setState] = useState("");
+  const [form, setForm] = useState<FormType>({
+    firstName: "",
+    lastName: "",
+    company: "",
+    vat: "",
+    phone: "",
+    country: "Malta",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
+  const [errors, setErrors] = useState<ErrorsType>({});
+  const [touched, setTouched] = useState<TouchedType>({});
+  const [submitAttempted, setSubmitAttempted] = useState(false);
   const countryOptions = ["Malta", "Italy", "France"];
   const stateOptions = ["State 1", "State 2", "State 3"];
+
+  function validate(form: FormType): ErrorsType {
+    const newErrors: ErrorsType = {};
+    if (!form.firstName) newErrors.firstName = "First name is required";
+    if (!form.lastName) newErrors.lastName = "Last name is required";
+    if (!form.phone) newErrors.phone = "Phone number is required";
+    if (!form.address1) newErrors.address1 = "Address line 1 is required";
+    if (!form.city) newErrors.city = "City is required";
+    if (!form.state) newErrors.state = "State is required";
+    if (!form.zip) newErrors.zip = "Zip code is required";
+    return newErrors;
+  }
+
+  useEffect(() => {
+    setErrors(validate(form));
+  }, [form]);
+
+  const isValid = Object.keys(errors).length === 0;
+
+  function handleBlur(field: keyof FormType) {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  }
+
+  function handleSubmit() {
+    setSubmitAttempted(true);
+    setTouched({
+      firstName: true,
+      lastName: true,
+      phone: true,
+      address1: true,
+      city: true,
+      state: true,
+      zip: true,
+    });
+    if (isValid) {
+      // Simulate order submission here
+    }
+  }
+
   return (
     <ScrollView>
       <View className="flex flex-row gap-[111px] px-11 mt-[84px]">
@@ -27,15 +96,24 @@ export default function CheckoutWeb() {
             <TextInput
               label="First name"
               placeholder="Enter your first name"
-              value=""
-              onChange={() => {}}
+              value={form.firstName}
+              onChange={(v) => setForm({ ...form, firstName: v })}
+              onBlur={() => handleBlur("firstName")}
+              error={
+                ((touched.firstName || submitAttempted) && errors.firstName) ||
+                ""
+              }
               name="firstName"
             />
             <TextInput
               label="Last name"
               placeholder="Enter your last name"
-              value=""
-              onChange={() => {}}
+              value={form.lastName}
+              onChange={(v) => setForm({ ...form, lastName: v })}
+              onBlur={() => handleBlur("lastName")}
+              error={
+                ((touched.lastName || submitAttempted) && errors.lastName) || ""
+              }
               name="lastName"
             />
           </View>
@@ -43,65 +121,81 @@ export default function CheckoutWeb() {
             <TextInput
               label="Company"
               placeholder="Enter your company name"
-              value=""
-              onChange={() => {}}
+              value={form.company}
+              onChange={(v) => setForm({ ...form, company: v })}
               name="company"
             />
             <TextInput
               label="VAT number"
               placeholder="Enter your VAT number"
-              value=""
-              onChange={() => {}}
+              value={form.vat}
+              onChange={(v) => setForm({ ...form, vat: v })}
               name="vatNumber"
             />
             <TextInput
               label="Phone number"
               placeholder="012334455"
-              value=""
-              onChange={() => {}}
+              value={form.phone}
+              onChange={(v) => setForm({ ...form, phone: v })}
+              onBlur={() => handleBlur("phone")}
+              error={((touched.phone || submitAttempted) && errors.phone) || ""}
               name="phoneNumber"
             />
             <Dropdown
               label="Country"
               options={countryOptions}
-              value={country}
-              onChange={setCountry}
+              value={form.country}
+              onChange={(v) => setForm({ ...form, country: v })}
+              error={
+                ((touched.country || submitAttempted) && errors.country) || ""
+              }
               name="country"
             />
             <TextInput
               label="Address line 1"
               placeholder="House number and street name"
-              value=""
-              onChange={() => {}}
+              value={form.address1}
+              onChange={(v) => setForm({ ...form, address1: v })}
+              onBlur={() => handleBlur("address1")}
+              error={
+                ((touched.address1 || submitAttempted) && errors.address1) || ""
+              }
               name="address1"
             />
             <TextInput
               label="Address line 2"
               placeholder="House number and street name"
-              value=""
-              onChange={() => {}}
+              value={form.address2}
+              onChange={(v) => setForm({ ...form, address2: v })}
               name="address2"
             />
             <View className="grid grid-cols-3 gap-4">
               <TextInput
                 label="City"
                 placeholder="City"
-                value=""
-                onChange={() => {}}
+                value={form.city}
+                onChange={(v) => setForm({ ...form, city: v })}
+                onBlur={() => handleBlur("city")}
+                error={((touched.city || submitAttempted) && errors.city) || ""}
                 name="city"
               />
               <Dropdown
                 label="State"
                 options={stateOptions}
-                value={state}
-                onChange={setState}
+                value={form.state}
+                onChange={(v) => setForm({ ...form, state: v })}
+                error={
+                  ((touched.state || submitAttempted) && errors.state) || ""
+                }
                 name="state"
               />
               <TextInput
                 label="Zip Code"
                 placeholder="Zip code"
-                value=""
-                onChange={() => {}}
+                value={form.zip}
+                onChange={(v) => setForm({ ...form, zip: v })}
+                onBlur={() => handleBlur("zip")}
+                error={((touched.zip || submitAttempted) && errors.zip) || ""}
                 name="zipCode"
               />
             </View>
@@ -158,8 +252,9 @@ export default function CheckoutWeb() {
             </InterText>
           </TouchableOpacity>
           <TouchableOpacity
-            className={`w-full h-14 rounded-lg text-white font-semibold text-base flex items-center justify-center ${true ? "bg-[#D0D5DD]" : "bg-[#2E439C]"}`}
-            disabled={true}
+            className={`w-full h-14 rounded-lg text-white font-semibold text-base flex items-center justify-center ${isValid ? "bg-[#2E439C]" : "bg-[#D0D5DD]"}`}
+            disabled={!isValid}
+            onPress={handleSubmit}
           >
             <InterText className="text-white text-base font-semibold">
               Pay now

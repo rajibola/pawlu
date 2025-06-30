@@ -9,11 +9,27 @@ import React from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 
 export default function Checkout() {
+  type FormType = {
+    firstName: string;
+    lastName: string;
+    company: string;
+    vat: string;
+    phone: string;
+    country: string;
+    address1: string;
+    address2: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  type ErrorsType = Partial<Record<keyof FormType, string>>;
+  type TouchedType = Partial<Record<keyof FormType, boolean>>;
+
   const [deliveryMethod, setDeliveryMethod] = React.useState<"ship" | "pickup">(
     "ship"
   );
   const [shipToDifferent, setShipToDifferent] = React.useState(false);
-  const [form, setForm] = React.useState({
+  const [form, setForm] = React.useState<FormType>({
     firstName: "",
     lastName: "",
     company: "",
@@ -26,8 +42,49 @@ export default function Checkout() {
     state: "",
     zip: "",
   });
+  const [errors, setErrors] = React.useState<ErrorsType>({});
+  const [touched, setTouched] = React.useState<TouchedType>({});
+  const [submitAttempted, setSubmitAttempted] = React.useState(false);
   const countryOptions = ["Malta", "Italy", "France", "Germany"];
   const stateOptions = ["State", "Gozo", "Valletta", "Mdina"];
+
+  function validate(form: FormType): ErrorsType {
+    const newErrors: ErrorsType = {};
+    if (!form.firstName) newErrors.firstName = "First name is required";
+    if (!form.lastName) newErrors.lastName = "Last name is required";
+    if (!form.phone) newErrors.phone = "Phone number is required";
+    if (!form.address1) newErrors.address1 = "Address line 1 is required";
+    if (!form.city) newErrors.city = "City is required";
+    if (!form.state) newErrors.state = "State is required";
+    if (!form.zip) newErrors.zip = "Zip code is required";
+    return newErrors;
+  }
+
+  React.useEffect(() => {
+    setErrors(validate(form));
+  }, [form]);
+
+  const isValid = Object.keys(errors).length === 0;
+
+  function handleBlur(field: keyof FormType) {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  }
+
+  function handleSubmit() {
+    setSubmitAttempted(true);
+    setTouched({
+      firstName: true,
+      lastName: true,
+      phone: true,
+      address1: true,
+      city: true,
+      state: true,
+      zip: true,
+    });
+    if (isValid) {
+      // Simulate order submission here
+    }
+  }
 
   return (
     <ScrollView>
@@ -47,12 +104,20 @@ export default function Checkout() {
             label="First name"
             value={form.firstName}
             onChange={(v) => setForm({ ...form, firstName: v })}
+            onBlur={() => handleBlur("firstName")}
+            error={
+              ((touched.firstName || submitAttempted) && errors.firstName) || ""
+            }
           />
           <TextInput
             placeholder="Enter your last name"
             label="Last name"
             value={form.lastName}
             onChange={(v) => setForm({ ...form, lastName: v })}
+            onBlur={() => handleBlur("lastName")}
+            error={
+              ((touched.lastName || submitAttempted) && errors.lastName) || ""
+            }
           />
           <TextInput
             placeholder="Enter your company name"
@@ -71,18 +136,27 @@ export default function Checkout() {
             label="Phone number"
             value={form.phone}
             onChange={(v) => setForm({ ...form, phone: v })}
+            onBlur={() => handleBlur("phone")}
+            error={((touched.phone || submitAttempted) && errors.phone) || ""}
           />
           <Dropdown
             label="Country"
             options={countryOptions}
             value={form.country}
             onChange={(v) => setForm({ ...form, country: v })}
+            error={
+              ((touched.country || submitAttempted) && errors.country) || ""
+            }
           />
           <TextInput
             placeholder="House number and street name"
             label="Address line 1"
             value={form.address1}
             onChange={(v) => setForm({ ...form, address1: v })}
+            onBlur={() => handleBlur("address1")}
+            error={
+              ((touched.address1 || submitAttempted) && errors.address1) || ""
+            }
           />
           <TextInput
             placeholder="Address line 2"
@@ -95,18 +169,23 @@ export default function Checkout() {
             label="City"
             value={form.city}
             onChange={(v) => setForm({ ...form, city: v })}
+            onBlur={() => handleBlur("city")}
+            error={((touched.city || submitAttempted) && errors.city) || ""}
           />
           <Dropdown
             label="State"
             options={stateOptions}
             value={form.state}
             onChange={(v) => setForm({ ...form, state: v })}
+            error={((touched.state || submitAttempted) && errors.state) || ""}
           />
           <TextInput
             placeholder="Zip code"
             label="Zip Code"
             value={form.zip}
             onChange={(v) => setForm({ ...form, zip: v })}
+            onBlur={() => handleBlur("zip")}
+            error={((touched.zip || submitAttempted) && errors.zip) || ""}
           />
         </View>
         <View className="bg-[#EAECF0] w-full h-[1px] my-10 -z-10" />
@@ -168,8 +247,9 @@ export default function Checkout() {
           </InterText>
         </TouchableOpacity>
         <TouchableOpacity
-          className="w-full h-14 mt-[60px] rounded-lg bg-gray-200 text-gray-500 font-semibold text-lg items-center justify-center"
-          disabled
+          className={`w-full h-14 mt-[60px] rounded-lg ${isValid ? "bg-[#2E439C]" : "bg-gray-200"} text-gray-500 font-semibold text-lg items-center justify-center`}
+          disabled={!isValid}
+          onPress={handleSubmit}
         >
           <InterText className="text-lg font-semibold text-white">
             Pay now

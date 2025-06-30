@@ -16,6 +16,7 @@ interface DropdownProps {
   value: string;
   onChange: (value: string) => void;
   name?: string;
+  error?: string;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -24,6 +25,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   value,
   onChange,
   name,
+  error,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -75,6 +77,11 @@ const Dropdown: React.FC<DropdownProps> = ({
           />
         </View>
       </Modal>
+      {error && (
+        <InterText className="text-xs text-red-600 mt-1 block">
+          {error}
+        </InterText>
+      )}
     </View>
   );
 };
