@@ -6,7 +6,7 @@ jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 
 describe("Checkout (Web)", () => {
   it("shows validation errors for required fields", async () => {
-    const { getByText, getByLabelText } = render(<CheckoutWeb />);
+    const { getByText } = render(<CheckoutWeb />);
     const payNow = getByText(/pay now/i);
     fireEvent.press(payNow);
     await waitFor(() => {
@@ -21,7 +21,7 @@ describe("Checkout (Web)", () => {
   });
 
   it("submits successfully when all required fields are filled", async () => {
-    const { getByText, getByLabelText, queryByText } = render(<CheckoutWeb />);
+    const { getByText, queryByText, getByLabelText } = render(<CheckoutWeb />);
     fireEvent.changeText(getByLabelText(/first name/i), "Jane");
     fireEvent.changeText(getByLabelText(/last name/i), "Smith");
     fireEvent.changeText(getByLabelText(/phone number/i), "987654321");
