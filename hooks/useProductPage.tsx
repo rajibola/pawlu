@@ -7,7 +7,7 @@ import { Alert } from "react-native";
 
 export function useProductPage() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
-  const { product, loading, error } = useProductDetail(slug || "");
+  const { product, loading } = useProductDetail(slug || "");
   const { addToCart } = useCart();
 
   const [quantity, setQuantity] = useState(1);
@@ -123,7 +123,6 @@ export function useProductPage() {
   return {
     product,
     loading,
-    error,
     options,
     quantity,
     setQuantity,

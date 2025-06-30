@@ -42,7 +42,7 @@ export interface ScreenContainerProps extends ScrollViewProps {
 export const edgesHorizontal = ["left", "right"] as Edge[];
 export const edgesVertical = ["top", "bottom"] as Edge[];
 
-const ScreenContainer: React.FC<ScreenContainerProps> = ({
+export const ScreenContainer: React.FC<ScreenContainerProps> = ({
   children,
   containerStyle,
   contentStyle,

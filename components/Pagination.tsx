@@ -1,6 +1,7 @@
 import { Next, Previous } from "@/assets/images/svgs";
+import { InterText } from "@/shared";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 type PaginationMeta = {
   current_page: number;
@@ -31,7 +32,7 @@ export default function Pagination({
     label: (
       <View className="flex-row items-center gap-2">
         <Previous />
-        <Text className="text-sm text-gray-500">Prev</Text>
+        <InterText className="text-sm text-gray-500">Prev</InterText>
       </View>
     ),
     url: prev_page_url,
@@ -85,7 +86,7 @@ export default function Pagination({
     label: (
       <View className="flex-row items-center gap-2">
         <Next />
-        <Text className="text-sm text-gray-500">Next</Text>
+        <InterText className="text-sm text-gray-500">Next</InterText>
       </View>
     ),
     url: next_page_url,
@@ -101,7 +102,7 @@ export default function Pagination({
               key={idx}
               className="h-[36px] min-w-[36px] px-4 mx-1 rounded border border-[#EAECF0] flex items-center justify-center"
             >
-              <Text className="text-sm text-[#101828]">...</Text>
+              <InterText className="text-sm text-[#101828]">...</InterText>
             </View>
           );
         }
@@ -120,11 +121,11 @@ export default function Pagination({
                 : "bg-[#FFFFFF] border-[#EAECF0]"
             } ${isDisabled ? "opacity-50" : "opacity-100"}`}
           >
-            <Text
+            <InterText
               className={`text-sm ${isActive ? "text-white" : "text-[#101828]"}`}
             >
               {item.label}
-            </Text>
+            </InterText>
           </TouchableOpacity>
         );
       })}

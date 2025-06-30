@@ -1,7 +1,7 @@
+import { InterText } from "@/shared";
 import React from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
 import { ChevronDown, ChevronUp } from "../assets/images/svgs";
-import InterText from "../shared/InterText";
 
 interface QuantitySelectorProps {
   quantity: number;

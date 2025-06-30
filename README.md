@@ -149,7 +149,7 @@ The shopping cart state is persisted across application sessions.
 ```tsx
 import { useApiWithErrorContext } from "@/utils/withErrorContext";
 import { useError } from "@/context/ErrorContext";
-import ErrorMessage from "@/components/ErrorMessage";
+import ErrorMessage from "@/shared/ErrorMessage";
 
 const apiWithError = useApiWithErrorContext();
 const { clearError } = useError();

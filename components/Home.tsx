@@ -1,10 +1,8 @@
-import ErrorMessage from "@/components/ErrorMessage";
 import { useError } from "@/context/ErrorContext";
+import { ErrorMessage, Footer, InterText } from "@/shared";
 import React from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
 import useProducts from "../hooks/useProducts";
-import { Footer } from "../shared/Footer";
-import InterText from "../shared/InterText";
 import Pagination from "./Pagination";
 
 export default function Home() {

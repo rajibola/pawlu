@@ -1,13 +1,12 @@
-import ErrorMessage from "@/components/ErrorMessage";
 import { useError } from "@/context/ErrorContext";
+import { ErrorMessage, Footer, InterText } from "@/shared";
 import { Product } from "@/types";
 import { Link } from "expo-router";
 import React from "react";
 import { ActivityIndicator, Pressable, ScrollView, View } from "react-native";
 import useProducts from "../hooks/useProducts";
 import { formatProductForDisplay } from "../services/productService";
-import { Footer } from "../shared/Footer.web";
-import InterText from "../shared/InterText";
+
 import Pagination from "./Pagination.web";
 import ProductCard from "./ProductCard.web";
 

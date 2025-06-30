@@ -1,6 +1,6 @@
+import { InterText } from "@/shared";
 import React from "react";
 import { View } from "react-native";
-import InterText from "../shared/InterText";
 import { Product } from "../types";
 
 interface ProductInfoProps {

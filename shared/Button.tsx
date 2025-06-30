@@ -1,4 +1,4 @@
-import InterText from "@/shared/InterText";
+import { InterText } from "@/shared";
 import React from "react";
 import {
   AccessibilityRole,
@@ -38,7 +38,7 @@ const disabledStyles: Record<ButtonVariant, string> = {
   ghost: "bg-transparent text-gray-400",
 };
 
-export default function Button({
+export const Button = ({
   children,
   onPress,
   variant = "primary",
@@ -50,7 +50,7 @@ export default function Button({
   accessibilityRole = "button",
   className = "",
   style,
-}: ButtonProps) {
+}: ButtonProps) => {
   const base =
     "rounded-lg h-14 flex flex-row items-center justify-center font-semibold text-lg " +
     (fullWidth ? "w-full " : " ");
@@ -84,4 +84,4 @@ export default function Button({
       )}
     </TouchableOpacity>
   );
-}
+};

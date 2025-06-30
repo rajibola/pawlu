@@ -1,5 +1,5 @@
 import { CartItem, useCart } from "@/context/CartContext";
-import InterText from "@/shared/InterText";
+import { InterText } from "@/shared";
 import { getNumericPrice } from "@/utils/price";
 import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";

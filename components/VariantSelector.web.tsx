@@ -1,6 +1,6 @@
+import { InterText } from "@/shared";
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
-import InterText from "../shared/InterText";
 import { Option, OptionValue } from "../types";
 
 interface VariantSelectorProps {

@@ -1,6 +1,6 @@
+import { InterText } from "@/shared";
 import React from "react";
 import { Image, ImageSourcePropType, View } from "react-native";
-import InterText from "../shared/InterText";
 
 interface ProductCardProps {
   image: ImageSourcePropType | string;

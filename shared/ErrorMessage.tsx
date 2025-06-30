@@ -1,13 +1,17 @@
 import { useError } from "@/context/ErrorContext";
+import { InterText } from "@/shared";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 interface ErrorMessageProps {
   message?: string;
   onRetry?: () => void;
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({ message, onRetry }) => {
+export const ErrorMessage: React.FC<ErrorMessageProps> = ({
+  message,
+  onRetry,
+}) => {
   const { error, clearError } = useError();
   const displayMessage = message || error;
 
@@ -15,46 +19,34 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({ message, onRetry }) => {
 
   return (
     <View
-      style={{
-        backgroundColor: "#FEE2E2",
-        padding: 16,
-        borderRadius: 8,
-        marginVertical: 8,
-      }}
+      className="bg-[#FEE2E2] p-4 rounded-lg my-2"
       accessible={true}
       accessibilityRole="alert"
       accessibilityLabel="Error message"
     >
-      <Text style={{ color: "#B91C1C", fontWeight: "bold", marginBottom: 8 }}>
+      <InterText className="text-red-600 font-bold mb-2">
         {displayMessage}
-      </Text>
-      <View style={{ flexDirection: "row", gap: 8 }}>
+      </InterText>
+      <View className="flex-row gap-2">
         {onRetry && (
           <TouchableOpacity
             onPress={onRetry}
             accessibilityRole="button"
             accessibilityLabel="Retry"
-            style={{
-              backgroundColor: "#F87171",
-              padding: 8,
-              borderRadius: 4,
-              marginRight: 8,
-            }}
+            className="bg-[#F87171] p-2 rounded-md mr-2"
           >
-            <Text style={{ color: "white", fontWeight: "bold" }}>Retry</Text>
+            <InterText className="text-white font-bold">Retry</InterText>
           </TouchableOpacity>
         )}
         <TouchableOpacity
           onPress={clearError}
           accessibilityRole="button"
           accessibilityLabel="Dismiss error"
-          style={{ backgroundColor: "#F3F4F6", padding: 8, borderRadius: 4 }}
+          className="bg-[#F3F4F6] p-2 rounded-md"
         >
-          <Text style={{ color: "#374151" }}>Dismiss</Text>
+          <InterText className="text-[#374151]">Dismiss</InterText>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
-
-export default ErrorMessage;

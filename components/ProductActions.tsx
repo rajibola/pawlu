@@ -1,7 +1,7 @@
+import { InterText } from "@/shared";
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Facebook, Heart, Instagram } from "../assets/images/svgs";
-import InterText from "../shared/InterText";
 
 interface ProductActionsProps {
   onAddToCart: () => void;

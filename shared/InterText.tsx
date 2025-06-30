@@ -1,9 +1,9 @@
 import { Text, TextProps } from "react-native";
 
-export default function InterText({
+export const InterText = ({
   children,
   ...props
-}: TextProps & { className?: string }) {
+}: TextProps & { className?: string }) => {
   return (
     <Text
       style={{ fontFamily: "Inter" }}
@@ -13,4 +13,4 @@ export default function InterText({
       {children}
     </Text>
   );
-}
+};

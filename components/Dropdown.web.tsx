@@ -1,5 +1,5 @@
 import ChevronDown from "@/assets/images/svgs/ChevronDown";
-import InterText from "@/shared/InterText";
+import { InterText } from "@/shared";
 import React, { useEffect, useRef, useState } from "react";
 
 interface DropdownProps {

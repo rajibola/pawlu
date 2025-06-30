@@ -1,7 +1,7 @@
 import { ErrorProvider } from "@/context/ErrorContext";
 import { fireEvent, render } from "@testing-library/react-native";
 import React from "react";
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from "../../shared/ErrorMessage";
 
 const renderWithProvider = (ui: React.ReactElement) => {
   return render(<ErrorProvider>{ui}</ErrorProvider>);

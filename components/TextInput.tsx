@@ -1,4 +1,4 @@
-import InterText from "@/shared/InterText";
+import { InterText } from "@/shared";
 import React from "react";
 import { TextInput as RNTextInput, View } from "react-native";
 

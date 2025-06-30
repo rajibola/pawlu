@@ -1,7 +1,7 @@
 import { Facebook, Instagram } from "@/assets/images/svgs";
 import { Image } from "expo-image";
 import { View } from "react-native";
-import InterText from "./InterText";
+import { InterText } from "./InterText";
 
 export function Footer() {
   return (

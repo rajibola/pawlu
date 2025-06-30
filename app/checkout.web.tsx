@@ -1,11 +1,9 @@
 import { Store } from "@/assets/images/svgs/Store";
 import { Truck } from "@/assets/images/svgs/Truck";
-import Button from "@/components/Button";
 import { CartSummary } from "@/components/CartSummary";
 import Dropdown from "@/components/Dropdown";
 import TextInput from "@/components/TextInput.web";
-import { Footer } from "@/shared/Footer";
-import InterText from "@/shared/InterText";
+import { Button, Footer, InterText } from "@/shared";
 import React, { useEffect, useState } from "react";
 import { Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
