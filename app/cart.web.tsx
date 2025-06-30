@@ -1,9 +1,10 @@
 import CancelIcon from "@/assets/images/svgs/Cancel";
 import { CartSummary, QuantityInput } from "@/components";
 import { CartItem, useCart } from "@/context/CartContext";
+import { getProductImage } from "@/services/productService";
 import { Footer, InterText } from "@/shared";
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CartScreenWeb() {
@@ -51,10 +52,7 @@ export default function CartScreenWeb() {
                 <tbody>
                   {cart.map((item: CartItem, idx) => {
                     const { product, variant, quantity } = item;
-                    const image =
-                      product.media?.find((m) => m.url)?.conversions?.[
-                        "medium-square"
-                      ] || product.media?.[0]?.url;
+                    const image = getProductImage(product);
                     const variantNames = variant.variant_type_options
                       .map((v) => v.name)
                       .filter(Boolean);
@@ -69,10 +67,15 @@ export default function CartScreenWeb() {
                           {/* Product */}
                           <td className="px-7 py-5">
                             <div className="flex flex-row items-center gap-4 min-w-0">
-                              <img
-                                src={image}
-                                alt={product.title}
-                                className="w-[84px] h-[84px] rounded-md object-cover flex-shrink-0"
+                              <Image
+                                source={
+                                  typeof image === "string"
+                                    ? { uri: image }
+                                    : image
+                                }
+                                className="w-[84px] max-w-[84px] h-[84px] rounded-md object-cover"
+                                resizeMode="contain"
+                                accessibilityLabel={product.title}
                               />
                               <div className="ml-4 min-w-0">
                                 <InterText className="font-medium text-sm max-w-[268px] truncate block">
