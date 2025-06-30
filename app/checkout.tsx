@@ -6,7 +6,13 @@ import TextInput from "@/components/TextInput";
 import { Footer } from "@/shared/Footer";
 import InterText from "@/shared/InterText";
 import React from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function Checkout() {
   type FormType = {
@@ -45,6 +51,9 @@ export default function Checkout() {
   const [errors, setErrors] = React.useState<ErrorsType>({});
   const [touched, setTouched] = React.useState<TouchedType>({});
   const [submitAttempted, setSubmitAttempted] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState("");
   const countryOptions = ["Malta", "Italy", "France", "Germany"];
   const stateOptions = ["State", "Gozo", "Valletta", "Mdina"];
 
@@ -82,7 +91,28 @@ export default function Checkout() {
       zip: true,
     });
     if (isValid) {
-      // Simulate order submission here
+      setLoading(true);
+      setErrorMsg("");
+      setSuccess(false);
+      // Simulate API call
+      setTimeout(() => {
+        setLoading(false);
+        const isSuccess = Math.random() > 0.3; // 70% chance of success
+        if (isSuccess) {
+          setSuccess(true);
+          Alert.alert(
+            "Order placed!",
+            "Your order was submitted successfully."
+          );
+          // Optionally reset form here
+        } else {
+          setErrorMsg("Order failed. Please try again.");
+          Alert.alert(
+            "Order failed",
+            "There was a problem submitting your order. Please try again."
+          );
+        }
+      }, 1500);
     }
   }
 
@@ -248,13 +278,27 @@ export default function Checkout() {
         </TouchableOpacity>
         <TouchableOpacity
           className={`w-full h-14 mt-[60px] rounded-lg ${isValid ? "bg-[#2E439C]" : "bg-gray-200"} text-gray-500 font-semibold text-lg items-center justify-center`}
-          disabled={!isValid}
+          disabled={!isValid || loading}
           onPress={handleSubmit}
         >
-          <InterText className="text-lg font-semibold text-white">
-            Pay now
-          </InterText>
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <InterText className="text-lg font-semibold text-white">
+              Pay now
+            </InterText>
+          )}
         </TouchableOpacity>
+        {success && (
+          <InterText className="text-green-700 text-center mt-4">
+            Order placed successfully!
+          </InterText>
+        )}
+        {!!errorMsg && (
+          <InterText className="text-red-600 text-center mt-4">
+            {errorMsg}
+          </InterText>
+        )}
       </View>
 
       <Footer />

@@ -6,7 +6,14 @@ import TextInput from "@/components/TextInput.web";
 import { Footer } from "@/shared/Footer";
 import InterText from "@/shared/InterText";
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function CheckoutWeb() {
   type FormType = {
@@ -46,6 +53,9 @@ export default function CheckoutWeb() {
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const countryOptions = ["Malta", "Italy", "France"];
   const stateOptions = ["State 1", "State 2", "State 3"];
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   function validate(form: FormType): ErrorsType {
     const newErrors: ErrorsType = {};
@@ -81,7 +91,26 @@ export default function CheckoutWeb() {
       zip: true,
     });
     if (isValid) {
-      // Simulate order submission here
+      setLoading(true);
+      setErrorMsg("");
+      setSuccess(false);
+      setTimeout(() => {
+        setLoading(false);
+        const isSuccess = Math.random() > 0.3;
+        if (isSuccess) {
+          setSuccess(true);
+          Alert.alert(
+            "Order placed!",
+            "Your order was submitted successfully."
+          );
+        } else {
+          setErrorMsg("Order failed. Please try again.");
+          Alert.alert(
+            "Order failed",
+            "There was a problem submitting your order. Please try again."
+          );
+        }
+      }, 1500);
     }
   }
 
@@ -253,13 +282,27 @@ export default function CheckoutWeb() {
           </TouchableOpacity>
           <TouchableOpacity
             className={`w-full h-14 rounded-lg text-white font-semibold text-base flex items-center justify-center ${isValid ? "bg-[#2E439C]" : "bg-[#D0D5DD]"}`}
-            disabled={!isValid}
+            disabled={!isValid || loading}
             onPress={handleSubmit}
           >
-            <InterText className="text-white text-base font-semibold">
-              Pay now
-            </InterText>
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <InterText className="text-white text-base font-semibold">
+                Pay now
+              </InterText>
+            )}
           </TouchableOpacity>
+          {success && (
+            <InterText className="text-green-700 text-center mt-4">
+              Order placed successfully!
+            </InterText>
+          )}
+          {!!errorMsg && (
+            <InterText className="text-red-600 text-center mt-4">
+              {errorMsg}
+            </InterText>
+          )}
         </View>
         <View className="w-[386px]">
           <CartSummary isCheckout />
