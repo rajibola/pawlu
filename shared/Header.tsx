@@ -10,10 +10,17 @@ export function Header() {
 
   return (
     <View className="flex-row justify-between items-center h-12 bg-white px-4">
-      <Image
-        source={require("../assets/images/logo.png")}
-        className="h-[25px] w-[75px]"
-      />
+      <Link href="/" asChild>
+        <TouchableOpacity
+          accessibilityRole="button"
+          accessibilityLabel="Go to homepage"
+        >
+          <Image
+            source={require("../assets/images/logo.png")}
+            className="h-[25px] w-[75px]"
+          />
+        </TouchableOpacity>
+      </Link>
       <Link href="/cart" asChild>
         <TouchableOpacity
           className="relative"

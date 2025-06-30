@@ -12,7 +12,13 @@ export function Header() {
   return (
     <View className="flex-row justify-between items-center h-16 bg-white px-12 w-full">
       <InterText className="text-base text-black">Products</InterText>
-      <Logo width={134.41} height={45.37} />
+      <TouchableOpacity
+        onPress={() => router.push("/")}
+        accessibilityRole="button"
+        accessibilityLabel="Go to homepage"
+      >
+        <Logo width={134.41} height={45.37} />
+      </TouchableOpacity>
       <TouchableOpacity
         className="relative"
         onPress={() => router.push("/cart")}
