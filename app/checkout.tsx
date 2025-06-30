@@ -1,18 +1,13 @@
 import { Store } from "@/assets/images/svgs/Store";
 import { Truck } from "@/assets/images/svgs/Truck";
+import Button from "@/components/Button";
 import { CartSummary } from "@/components/CartSummary";
 import Dropdown from "@/components/Dropdown";
 import TextInput from "@/components/TextInput";
 import { Footer } from "@/shared/Footer";
 import InterText from "@/shared/InterText";
 import React from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 
 export default function Checkout() {
   type FormType = {
@@ -276,19 +271,17 @@ export default function Checkout() {
             Ship to a different address?
           </InterText>
         </TouchableOpacity>
-        <TouchableOpacity
-          className={`w-full h-14 mt-[60px] rounded-lg ${isValid ? "bg-[#2E439C]" : "bg-gray-200"} text-gray-500 font-semibold text-lg items-center justify-center`}
-          disabled={!isValid || loading}
+        <Button
           onPress={handleSubmit}
+          loading={loading}
+          disabled={!isValid}
+          fullWidth
+          accessibilityLabel="Pay now"
+          accessibilityHint="Submit your order"
+          className="mt-[60px]"
         >
-          {loading ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <InterText className="text-lg font-semibold text-white">
-              Pay now
-            </InterText>
-          )}
-        </TouchableOpacity>
+          Pay now
+        </Button>
         {success && (
           <InterText className="text-green-700 text-center mt-4">
             Order placed successfully!

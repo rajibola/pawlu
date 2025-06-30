@@ -1,8 +1,9 @@
+import Button from "@/components/Button";
 import { useCart } from "@/context/CartContext";
 import InterText from "@/shared/InterText";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 
 const InfoRow = ({ label, value }: { label: string; value: string }) => (
   <View className="flex-row justify-between items-center mb-2">
@@ -48,18 +49,17 @@ export function CartSummary({ isCheckout = false }: { isCheckout?: boolean }) {
         </InterText>
       </View>
       {!isCheckout && (
-        <TouchableOpacity
+        <Button
+          onPress={subtotal > 0 ? handleCheckout : () => {}}
           disabled={subtotal === 0}
-          className={`rounded-lg h-14 flex items-center justify-center ${subtotal === 0 ? "bg-gray-400" : "bg-[#2E439C]"}`}
+          fullWidth
           accessibilityRole="button"
           accessibilityLabel="Proceed to checkout"
-          accessibilityState={{ disabled: subtotal === 0 }}
-          onPress={subtotal > 0 ? handleCheckout : undefined}
+          accessibilityHint="Go to checkout page"
+          className="mt-0"
         >
-          <InterText className="text-white font-semibold text-lg">
-            Checkout
-          </InterText>
-        </TouchableOpacity>
+          Checkout
+        </Button>
       )}
     </View>
   );
