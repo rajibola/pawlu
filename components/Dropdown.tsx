@@ -28,6 +28,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   error,
 }) => {
   const [open, setOpen] = useState(false);
+  const hint = error ? error : `Dropdown for ${label}`;
 
   return (
     <View className="mb-2">
@@ -39,6 +40,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         className="border-[#D0D5DD] border rounded-lg h-[44px] px-4 flex-row items-center justify-between"
         onPress={() => setOpen(true)}
         accessibilityLabel={label}
+        accessibilityHint={hint}
       >
         <InterText
           className={`text-base ${!value ? "text-[#98A2B3]" : "text-[#344054]"}`}

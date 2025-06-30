@@ -23,6 +23,9 @@ export default function TextInput({
   error,
   onBlur,
 }: TextInputProps) {
+  const errorId = error
+    ? `${name || label.replace(/\s+/g, "-").toLowerCase()}-error`
+    : undefined;
   return (
     <View>
       <InterText className="block text-sm font-medium text-[#344054] mb-2">
@@ -37,10 +40,15 @@ export default function TextInput({
         value={value}
         onChangeText={onChange}
         accessibilityLabel={label}
+        aria-describedby={errorId}
         onBlur={onBlur}
       />
       {error && (
-        <InterText className="text-xs text-red-600 mt-1 block">
+        <InterText
+          className="text-xs text-red-600 mt-1 block"
+          id={errorId}
+          role="alert"
+        >
           {error}
         </InterText>
       )}

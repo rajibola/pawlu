@@ -192,3 +192,31 @@ The application provides a fully-featured shopping cart page where users can rev
 - **Live Updates**: The UI instantly reflects any changes made to the cart without requiring a page reload.
 - **Component-Based Architecture**: The feature is built with reusable components like `CartListItem` and `CartSummary` for both mobile and web platforms.
 - **Cross-Platform Persistence**: Cart state is saved to `AsyncStorage` (mobile) or `localStorage` (web), ensuring items remain in the cart across sessions.
+
+## Checkout Flow
+
+The application provides a robust checkout experience for both mobile and web platforms.
+
+### Key Features
+
+- **Checkout Form UI**: Users can enter billing and shipping information in a form that matches the design for both mobile and web.
+- **Form Validation**: All required fields are validated. Error messages are shown below each field and are accessible to screen readers.
+- **Cart Summary**: An accurate summary of the cart (subtotal, shipping, tax, total) is displayed during checkout.
+- **Simulated Order Submission**: When the user submits the form, a simulated API call is made. The user receives clear success or failure feedback.
+- **Accessibility**: All form fields, buttons, and error messages are accessible. Screen readers announce errors and feedback. Proper roles and hints are provided.
+- **Testing**: Comprehensive unit tests verify validation, error messages, and submission feedback for both mobile and web checkout flows.
+
+### Technical Implementation
+
+- **Form State**: Managed with React state hooks for all fields and validation.
+- **Validation**: Required fields are checked on blur and submit. Errors are shown inline and announced to assistive technology.
+- **Submission**: The "Pay now" button is enabled only when the form is valid. On submit, a loading indicator is shown, and a simulated API call provides success or error feedback.
+- **Accessibility**: Uses `accessibilityLabel`, `accessibilityHint` (mobile), and `aria-describedby`, `role="alert"` (web) for accessible forms and error messages.
+- **Unit Tests**: Located in `components/__tests__/Checkout.test.tsx` and `components/__tests__/Checkout.web.test.tsx`. Run all tests with `npm test`.
+
+### How to Use
+
+1. Add items to your cart.
+2. Proceed to checkout.
+3. Fill in all required billing and shipping fields.
+4. Click or tap "Pay now". You will see a loading indicator, then a success or error message.

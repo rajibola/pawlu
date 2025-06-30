@@ -21,6 +21,9 @@ const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const errorId = error
+    ? `${name || label.replace(/\s+/g, "-").toLowerCase()}-error`
+    : undefined;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -48,6 +51,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         className={`border rounded-lg z-30 h-[44px] px-[14px] w-full text-base text-[#344054] bg-white flex flex-row items-center justify-between border-[#D0D5DD] focus:outline-none focus:ring-2 focus:ring-blue-500`}
         style={{ boxShadow: "0px 1px 2px 0px #1018280D" }}
         onClick={() => setOpen((prev) => !prev)}
+        aria-describedby={errorId}
       >
         <InterText
           className={`text-base text-[#344054] ${!value ? "text-[#98A2B3]" : ""}`}
@@ -74,7 +78,11 @@ const Dropdown: React.FC<DropdownProps> = ({
         </div>
       )}
       {error && (
-        <InterText className="text-xs text-red-600 mt-1 block">
+        <InterText
+          className="text-xs text-red-600 mt-1 block"
+          id={errorId}
+          role="alert"
+        >
           {error}
         </InterText>
       )}
