@@ -1,94 +1,182 @@
+import { Store } from "@/assets/images/svgs/Store";
+import { Truck } from "@/assets/images/svgs/Truck";
 import { CartSummary } from "@/components/CartSummary";
+import Dropdown from "@/components/Dropdown";
+import TextInput from "@/components/TextInput";
 import { Footer } from "@/shared/Footer";
+import InterText from "@/shared/InterText";
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 
-export default function CheckoutWeb() {
+export default function Checkout() {
+  const [deliveryMethod, setDeliveryMethod] = React.useState<"ship" | "pickup">(
+    "ship"
+  );
+  const [shipToDifferent, setShipToDifferent] = React.useState(false);
+  const [form, setForm] = React.useState({
+    firstName: "",
+    lastName: "",
+    company: "",
+    vat: "",
+    phone: "",
+    country: "Malta",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
+  const countryOptions = ["Malta", "Italy", "France", "Germany"];
+  const stateOptions = ["State", "Gozo", "Valletta", "Mdina"];
+
   return (
     <ScrollView>
-      <View className="flex-1 px-11 mt-[54px] mb-[86px]">
-        <Text className="text-2xl font-semibold mb-6">Billing Details</Text>
-        {/* Billing Details Form Placeholder */}
-        <View className="grid grid-cols-2 gap-6 mb-8">
-          <input
-            className="border rounded-lg p-3 w-full"
-            placeholder="First name"
+      <View className="w-full max-w-[386px] mx-auto px-4">
+        <CartSummary isCheckout />
+      </View>
+
+      <View className="flex-1 w-full max-w-[386px] mx-auto px-4 mb-10">
+        <View className="bg-[#EAECF0] w-full h-[1px] my-10 -z-10" />
+        <InterText className="text-2xl font-semibold mb-6">
+          Billing Details
+        </InterText>
+
+        <View className="flex gap-6">
+          <TextInput
+            placeholder="Enter your first name"
+            label="First name"
+            value={form.firstName}
+            onChange={(v) => setForm({ ...form, firstName: v })}
           />
-          <input
-            className="border rounded-lg p-3 w-full"
-            placeholder="Last name"
+          <TextInput
+            placeholder="Enter your last name"
+            label="Last name"
+            value={form.lastName}
+            onChange={(v) => setForm({ ...form, lastName: v })}
           />
-        </View>
-        <View className="mb-8">
-          <input
-            className="border rounded-lg p-3 w-full mb-4"
-            placeholder="Company"
+          <TextInput
+            placeholder="Enter your company name"
+            label="Company"
+            value={form.company}
+            onChange={(v) => setForm({ ...form, company: v })}
           />
-          <input
-            className="border rounded-lg p-3 w-full mb-4"
-            placeholder="VAT number"
+          <TextInput
+            placeholder="Enter your VAT number"
+            label="VAT number"
+            value={form.vat}
+            onChange={(v) => setForm({ ...form, vat: v })}
           />
-          <input
-            className="border rounded-lg p-3 w-full mb-4"
-            placeholder="Phone number"
+          <TextInput
+            placeholder="012334455"
+            label="Phone number"
+            value={form.phone}
+            onChange={(v) => setForm({ ...form, phone: v })}
           />
-          <select className="border rounded-lg p-3 w-full mb-4">
-            <option>Malta</option>
-          </select>
-          <input
-            className="border rounded-lg p-3 w-full mb-4"
-            placeholder="Address line 1"
+          <Dropdown
+            label="Country"
+            options={countryOptions}
+            value={form.country}
+            onChange={(v) => setForm({ ...form, country: v })}
           />
-          <input
-            className="border rounded-lg p-3 w-full mb-4"
+          <TextInput
+            placeholder="House number and street name"
+            label="Address line 1"
+            value={form.address1}
+            onChange={(v) => setForm({ ...form, address1: v })}
+          />
+          <TextInput
             placeholder="Address line 2"
+            label="Address line 2"
+            value={form.address2}
+            onChange={(v) => setForm({ ...form, address2: v })}
           />
-          <div className="grid grid-cols-3 gap-4">
-            <input
-              className="border rounded-lg p-3 w-full"
-              placeholder="City"
-            />
-            <input
-              className="border rounded-lg p-3 w-full"
-              placeholder="State"
-            />
-            <input
-              className="border rounded-lg p-3 w-full"
-              placeholder="Zip code"
-            />
-          </div>
+          <TextInput
+            placeholder="City"
+            label="City"
+            value={form.city}
+            onChange={(v) => setForm({ ...form, city: v })}
+          />
+          <Dropdown
+            label="State"
+            options={stateOptions}
+            value={form.state}
+            onChange={(v) => setForm({ ...form, state: v })}
+          />
+          <TextInput
+            placeholder="Zip code"
+            label="Zip Code"
+            value={form.zip}
+            onChange={(v) => setForm({ ...form, zip: v })}
+          />
         </View>
-        <Text className="text-xl font-semibold mb-4">Delivery</Text>
-        {/* Delivery Options Placeholder */}
-        <View className="border rounded-lg p-6 mb-8">
-          <label className="flex items-center mb-2">
-            <input
-              type="radio"
-              name="delivery"
-              className="mr-2"
-              defaultChecked
-            />{" "}
-            Ship
-          </label>
-          <label className="flex items-center mb-2">
-            <input type="radio" name="delivery" className="mr-2" /> Pickup in
-            store
-          </label>
-          <label className="flex items-center">
-            <input type="checkbox" className="mr-2" /> Ship to a different
-            address?
-          </label>
+        <View className="bg-[#EAECF0] w-full h-[1px] my-10 -z-10" />
+        <InterText className="text-xl font-semibold mb-4">Delivery</InterText>
+        <View className="border rounded-xl p-6 mb-8 bg-white border-[#D0D5DD] h-[128px] flex flex-col justify-between">
+          <TouchableOpacity
+            className="flex-row items-center "
+            onPress={() => setDeliveryMethod("ship")}
+          >
+            <View
+              className={`w-4 h-4 rounded-full border-2 items-center justify-center mr-4 ${deliveryMethod === "ship" ? "border-[#AA8734]" : "border-[#D0D5DD]"}`}
+            >
+              {deliveryMethod === "ship" && (
+                <View className="w-[6px] h-[6px] rounded-full bg-[#AA8734]" />
+              )}
+            </View>
+            <InterText
+              className={`text-base font-semibold mr-auto ${deliveryMethod === "ship" ? "text-[#101828]" : "text-[#667085]"}`}
+            >
+              Ship
+            </InterText>
+            <Truck stroke={deliveryMethod === "ship" ? "#101828" : "#98A2B3"} />
+          </TouchableOpacity>
+          <View className="border-t border-gray-200 m-0" />
+          <TouchableOpacity
+            className="flex-row items-center"
+            onPress={() => setDeliveryMethod("pickup")}
+          >
+            <View
+              className={`w-4 h-4 rounded-full border-2 items-center justify-center mr-4 ${deliveryMethod === "pickup" ? "border-[#AA8734]" : "border-[#D0D5DD]"}`}
+            >
+              {deliveryMethod === "pickup" && (
+                <View className="w-[6px] h-[6px] rounded-full bg-[#AA8734]" />
+              )}
+            </View>
+            <InterText
+              className={`text-base font-semibold mr-auto ${deliveryMethod === "pickup" ? "text-[#101828]" : "text-[#667085]"}`}
+            >
+              Pickup in store
+            </InterText>
+            <Store
+              stroke={deliveryMethod === "pickup" ? "#101828" : "#98A2B3"}
+            />
+          </TouchableOpacity>
         </View>
-        <button
-          className="w-full h-14 rounded-lg bg-gray-200 text-gray-500 font-semibold text-lg"
+        <TouchableOpacity
+          className="flex-row items-center"
+          onPress={() => setShipToDifferent((v) => !v)}
+        >
+          <View
+            className={`w-4 h-4 border border-[#D0D5DD] rounded mr-2 bg-white items-center justify-center`}
+          >
+            {shipToDifferent && (
+              <View className="w-2 h-2 bg-[#AA8734] rounded" />
+            )}
+          </View>
+          <InterText className="text-sm font-semibold text-[#344054]">
+            Ship to a different address?
+          </InterText>
+        </TouchableOpacity>
+        <TouchableOpacity
+          className="w-full h-14 mt-[60px] rounded-lg bg-gray-200 text-gray-500 font-semibold text-lg items-center justify-center"
           disabled
         >
-          Pay now
-        </button>
+          <InterText className="text-lg font-semibold text-white">
+            Pay now
+          </InterText>
+        </TouchableOpacity>
       </View>
-      <View className="absolute top-[54px] right-11 w-[386px]">
-        <CartSummary />
-      </View>
+
       <Footer />
     </ScrollView>
   );

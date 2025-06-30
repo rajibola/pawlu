@@ -10,6 +10,7 @@ interface TextInputProps {
   name?: string;
   type?: string;
   error?: string;
+  className?: string;
 }
 
 export default function TextInput({
@@ -20,6 +21,7 @@ export default function TextInput({
   name,
   type = "text",
   error,
+  className,
 }: TextInputProps) {
   return (
     <View>
@@ -29,7 +31,7 @@ export default function TextInput({
       <RNTextInput
         className={`border rounded-lg h-[44px] py-[10px] px-[14px] w-full text-[#344054] placeholder-[#98A2B3] focus:outline-none focus:ring-2 focus:ring-blue-500 ${
           error ? "border-red-500" : "border-[#D0D5DD]"
-        }`}
+        } ${className}`}
         style={{ boxShadow: "0px 1px 2px 0px #1018280D" }}
         placeholder={placeholder}
         value={value}

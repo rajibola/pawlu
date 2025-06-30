@@ -1,6 +1,7 @@
 import { Store } from "@/assets/images/svgs/Store";
 import { Truck } from "@/assets/images/svgs/Truck";
 import { CartSummary } from "@/components/CartSummary";
+import Dropdown from "@/components/Dropdown";
 import TextInput from "@/components/TextInput.web";
 import { Footer } from "@/shared/Footer";
 import InterText from "@/shared/InterText";
@@ -11,6 +12,10 @@ export default function CheckoutWeb() {
   const [deliveryMethod, setDeliveryMethod] = useState<"ship" | "pickup">(
     "ship"
   );
+  const [country, setCountry] = useState("Malta");
+  const [state, setState] = useState("");
+  const countryOptions = ["Malta", "Italy", "France"];
+  const stateOptions = ["State 1", "State 2", "State 3"];
   return (
     <ScrollView>
       <View className="flex flex-row gap-[111px] px-11 mt-[84px]">
@@ -34,7 +39,7 @@ export default function CheckoutWeb() {
               name="lastName"
             />
           </View>
-          <View className="mb-8">
+          <View className="flex flex-col gap-6 mt-6">
             <TextInput
               label="Company"
               placeholder="Enter your company name"
@@ -56,14 +61,13 @@ export default function CheckoutWeb() {
               onChange={() => {}}
               name="phoneNumber"
             />
-            <View className="mb-4">
-              <InterText className="block text-sm font-semibold text-[#344054] mb-2">
-                Country
-              </InterText>
-              <View className="border rounded-lg p-3 w-full border-gray-200 bg-white">
-                <Text className="text-[#344054]">Malta</Text>
-              </View>
-            </View>
+            <Dropdown
+              label="Country"
+              options={countryOptions}
+              value={country}
+              onChange={setCountry}
+              name="country"
+            />
             <TextInput
               label="Address line 1"
               placeholder="House number and street name"
@@ -86,11 +90,11 @@ export default function CheckoutWeb() {
                 onChange={() => {}}
                 name="city"
               />
-              <TextInput
+              <Dropdown
                 label="State"
-                placeholder="State"
-                value=""
-                onChange={() => {}}
+                options={stateOptions}
+                value={state}
+                onChange={setState}
                 name="state"
               />
               <TextInput
@@ -102,6 +106,7 @@ export default function CheckoutWeb() {
               />
             </View>
           </View>
+          <View className="bg-[#EAECF0] w-full h-[1px] my-10 -z-10" />
           <InterText className="text-xl font-semibold mb-6">Delivery</InterText>
           <View className="bg-white border border-gray-200 rounded-xl overflow-hidden mb-8 px-8">
             <TouchableOpacity
@@ -147,17 +152,19 @@ export default function CheckoutWeb() {
             </TouchableOpacity>
           </View>
           <TouchableOpacity className="flex-row items-center mb-[60px]">
-            <View className="w-5 h-5 border-2 border-gray-300 rounded mr-2 bg-white" />
+            <View className="w-4 h-4 border border-[#D0D5DD] rounded mr-2 bg-white" />
             <InterText className="text-sm font-semibold text-[#344054]">
               Ship to a different address?
             </InterText>
           </TouchableOpacity>
-          <button
-            className="w-full h-14 rounded-lg bg-gray-200 text-gray-500 font-semibold text-lg"
-            disabled
+          <TouchableOpacity
+            className={`w-full h-14 rounded-lg text-white font-semibold text-base flex items-center justify-center ${true ? "bg-[#D0D5DD]" : "bg-[#2E439C]"}`}
+            disabled={true}
           >
-            Pay now
-          </button>
+            <InterText className="text-white text-base font-semibold">
+              Pay now
+            </InterText>
+          </TouchableOpacity>
         </View>
         <View className="w-[386px]">
           <CartSummary isCheckout />
