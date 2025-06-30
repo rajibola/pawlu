@@ -36,6 +36,7 @@ export default function TextInput({
         } ${className}`}
         style={{ boxShadow: "0px 1px 2px 0px #1018280D" }}
         placeholder={placeholder}
+        placeholderTextColor="#667085"
         value={value}
         onChangeText={onChange}
         accessibilityLabel={label}
