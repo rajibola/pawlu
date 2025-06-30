@@ -7,7 +7,7 @@ interface ProductActionsProps {
   onAddToCart: () => void;
 }
 
-const ProductActions: React.FC<ProductActionsProps> = ({ onAddToCart }) => {
+export const ProductActions = ({ onAddToCart }: ProductActionsProps) => {
   return (
     <>
       <View className="flex-row items-center gap-2 mt-[87px]">
@@ -44,5 +44,3 @@ const ProductActions: React.FC<ProductActionsProps> = ({ onAddToCart }) => {
     </>
   );
 };
-
-export default ProductActions;

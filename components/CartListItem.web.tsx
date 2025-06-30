@@ -3,7 +3,7 @@ import { InterText } from "@/shared";
 import { getNumericPrice } from "@/utils/price";
 import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
-import QuantityInput from "./QuantityInput.web";
+import { QuantityInput } from "./QuantityInput.web";
 
 const CloseIcon = () => <InterText className="font-bold text-2xl">×</InterText>;
 
@@ -11,7 +11,7 @@ type CartListItemProps = {
   item: CartItem;
 };
 
-export function CartListItem({ item }: CartListItemProps) {
+export const CartListItem = ({ item }: CartListItemProps) => {
   const { updateQuantity, removeFromCart } = useCart();
   const { product, variant, quantity } = item;
 
@@ -84,4 +84,4 @@ export function CartListItem({ item }: CartListItemProps) {
       </View>
     </View>
   );
-}
+};

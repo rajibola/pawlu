@@ -11,7 +11,11 @@ const InfoRow = ({ label, value }: { label: string; value: string }) => (
   </View>
 );
 
-export function CartSummary({ isCheckout = false }: { isCheckout?: boolean }) {
+export const CartSummary = ({
+  isCheckout = false,
+}: {
+  isCheckout?: boolean;
+}) => {
   const { getCartTotal } = useCart();
   const router = useRouter();
 
@@ -62,4 +66,4 @@ export function CartSummary({ isCheckout = false }: { isCheckout?: boolean }) {
       )}
     </View>
   );
-}
+};

@@ -4,12 +4,12 @@ import { useApiWithErrorContext } from "@/utils/withErrorContext";
 import { Link } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import ProductCard from "../components/ProductCard";
+import { ProductCard } from "../components";
 import { fetchProducts, formatProductForDisplay } from "../services";
 
 export type { PaginationMeta, Product };
 
-export default function useProducts() {
+export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [meta, setMeta] = useState<PaginationMeta | null>(null);
   const [loading, setLoading] = useState(false);
@@ -72,4 +72,4 @@ export default function useProducts() {
     renderProduct,
     apiUrl: pageUrl,
   };
-}
+};

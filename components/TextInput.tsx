@@ -14,7 +14,7 @@ interface TextInputProps {
   onBlur?: () => void;
 }
 
-export default function TextInput({
+export const TextInput = ({
   label,
   placeholder,
   value,
@@ -24,7 +24,7 @@ export default function TextInput({
   error,
   className,
   onBlur,
-}: TextInputProps) {
+}: TextInputProps) => {
   return (
     <View>
       <InterText className="block text-sm font-medium text-[#344054] mb-2">
@@ -49,4 +49,4 @@ export default function TextInput({
       )}
     </View>
   );
-}
+};

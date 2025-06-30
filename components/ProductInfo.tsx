@@ -8,7 +8,7 @@ interface ProductInfoProps {
   price: string;
 }
 
-const ProductInfo: React.FC<ProductInfoProps> = ({ product, price }) => {
+export const ProductInfo = ({ product, price }: ProductInfoProps) => {
   return (
     <View>
       <InterText className="text-xl font-bold text-[#101828]">
@@ -23,5 +23,3 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product, price }) => {
     </View>
   );
 };
-
-export default ProductInfo;

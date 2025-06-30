@@ -11,14 +11,14 @@ interface DropdownProps {
   error?: string;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({
+export const Dropdown = ({
   label,
   options,
   value,
   onChange,
   name,
   error,
-}) => {
+}: DropdownProps) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const errorId = error

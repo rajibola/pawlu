@@ -1,18 +1,18 @@
-import ProductActions from "@/components/ProductActions";
-import ProductImageGallery from "@/components/ProductImageGallery";
-import ProductInfo from "@/components/ProductInfo";
-import QuantitySelector from "@/components/QuantitySelector";
-import VariantSelector from "@/components/VariantSelector";
+import {
+  ProductActions,
+  ProductImageGallery,
+  ProductInfo,
+  QuantitySelector,
+  VariantSelector,
+} from "@/components";
 import { useProductPage } from "@/hooks/useProductPage";
-import { Footer } from "@/shared/Footer";
-import InterText from "@/shared/InterText";
+import { Footer, InterText } from "@/shared";
 import { ActivityIndicator, ScrollView, View } from "react-native";
 
 export default function ProductDetail() {
   const {
     product,
     loading,
-    error,
     options,
     quantity,
     setQuantity,
@@ -30,15 +30,7 @@ export default function ProductDetail() {
     );
   }
 
-  if (error) {
-    return (
-      <View className="flex-1 justify-center items-center p-4 bg-white">
-        <InterText className="text-red-500 text-center">{error}</InterText>
-      </View>
-    );
-  }
-
-  if (!product) {
+  if (!loading && !product) {
     return (
       <View className="flex-1 justify-center items-center bg-white">
         <InterText>Product not found.</InterText>
@@ -50,10 +42,10 @@ export default function ProductDetail() {
     <View className="flex-1 bg-white">
       <ScrollView>
         <View className="w-full px-[10px]">
-          <ProductImageGallery images={product.media} />
+          <ProductImageGallery images={product!.media} />
         </View>
         <View className="w-full px-[10px] space-y-6 mt-10">
-          <ProductInfo product={product} price={price} />
+          <ProductInfo product={product!} price={price} />
           {options.length > 0 && (
             <VariantSelector
               options={options}

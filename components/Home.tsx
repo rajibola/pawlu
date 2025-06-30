@@ -2,10 +2,10 @@ import { useError } from "@/context/ErrorContext";
 import { ErrorMessage, Footer, InterText } from "@/shared";
 import React from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
-import useProducts from "../hooks/useProducts";
-import Pagination from "./Pagination";
+import { useProducts } from "../hooks/useProducts";
+import { Pagination } from "./Pagination";
 
-export default function Home() {
+export const Home = () => {
   const { products, loading, meta, handlePageChange, renderProduct, apiUrl } =
     useProducts();
   const { error: globalError, clearError } = useError();
@@ -66,4 +66,4 @@ export default function Home() {
         ))}
     </View>
   );
-}
+};

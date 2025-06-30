@@ -1,8 +1,6 @@
 import { Store } from "@/assets/images/svgs/Store";
 import { Truck } from "@/assets/images/svgs/Truck";
-import { CartSummary } from "@/components/CartSummary";
-import Dropdown from "@/components/Dropdown";
-import TextInput from "@/components/TextInput";
+import { CartSummary, Dropdown, TextInput } from "@/components";
 import { Button, Footer, InterText } from "@/shared";
 import React from "react";
 import { Alert, ScrollView, TouchableOpacity, View } from "react-native";

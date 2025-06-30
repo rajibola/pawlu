@@ -6,9 +6,7 @@ type ProductImageGalleryProps = {
   images: ProductMedia[];
 };
 
-export default function ProductImageGallery({
-  images,
-}: ProductImageGalleryProps) {
+export const ProductImageGallery = ({ images }: ProductImageGalleryProps) => {
   const [selectedImage, setSelectedImage] = useState(images[0]?.url);
 
   if (!images || images.length === 0) {
@@ -60,4 +58,4 @@ export default function ProductImageGallery({
       </ScrollView>
     </View>
   );
-}
+};

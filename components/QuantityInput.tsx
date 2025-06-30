@@ -9,11 +9,11 @@ interface QuantityInputProps {
   max?: number;
 }
 
-export default function QuantityInput({
+export const QuantityInput = ({
   quantity,
   setQuantity,
   max = 20,
-}: QuantityInputProps) {
+}: QuantityInputProps) => {
   return (
     <View className="flex-row items-center justify-between rounded-lg border border-gray-200 bg-white px-2 py-2 min-w-[62px] h-[36px]">
       <Text className="flex-1 text-center text-sm text-[#344054] font-semibold">
@@ -39,4 +39,4 @@ export default function QuantityInput({
       </View>
     </View>
   );
-}
+};

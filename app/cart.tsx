@@ -1,8 +1,6 @@
-import { CartListItem } from "@/components/CartListItem";
-import { CartSummary } from "@/components/CartSummary";
+import { CartListItem, CartSummary } from "@/components";
 import { CartItem, useCart } from "@/context/CartContext";
-import { Footer } from "@/shared/Footer";
-import InterText from "@/shared/InterText";
+import { Footer, InterText } from "@/shared";
 import { FlatList, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 

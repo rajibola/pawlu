@@ -13,7 +13,7 @@ interface TextInputProps {
   onBlur?: () => void;
 }
 
-export default function TextInput({
+export const TextInput = ({
   label,
   placeholder,
   value,
@@ -22,7 +22,7 @@ export default function TextInput({
   type = "text",
   error,
   onBlur,
-}: TextInputProps) {
+}: TextInputProps) => {
   const errorId = error
     ? `${name || label.replace(/\s+/g, "-").toLowerCase()}-error`
     : undefined;
@@ -54,4 +54,4 @@ export default function TextInput({
       )}
     </View>
   );
-}
+};

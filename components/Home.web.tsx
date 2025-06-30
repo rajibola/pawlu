@@ -4,13 +4,13 @@ import { Product } from "@/types";
 import { Link } from "expo-router";
 import React from "react";
 import { ActivityIndicator, Pressable, ScrollView, View } from "react-native";
-import useProducts from "../hooks/useProducts";
+import { useProducts } from "../hooks/useProducts";
 import { formatProductForDisplay } from "../services/productService";
 
-import Pagination from "./Pagination.web";
-import ProductCard from "./ProductCard.web";
+import { Pagination } from "./Pagination.web";
+import { ProductCard } from "./ProductCard.web";
 
-export default function Home() {
+export const Home = () => {
   const { products, loading, meta, handlePageChange, apiUrl } = useProducts();
   const { error: globalError, clearError } = useError();
 
@@ -76,4 +76,4 @@ export default function Home() {
       )}
     </View>
   );
-}
+};

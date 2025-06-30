@@ -1,9 +1,7 @@
 import CancelIcon from "@/assets/images/svgs/Cancel";
-import { CartSummary } from "@/components/CartSummary";
-import QuantityInput from "@/components/QuantityInput.web";
+import { CartSummary, QuantityInput } from "@/components";
 import { CartItem, useCart } from "@/context/CartContext";
-import { Footer } from "@/shared/Footer";
-import InterText from "@/shared/InterText";
+import { Footer, InterText } from "@/shared";
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";

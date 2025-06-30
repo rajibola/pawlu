@@ -9,7 +9,7 @@ interface ProductCardProps {
   price: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ image, name, price }) => {
+export const ProductCard = ({ image, name, price }: ProductCardProps) => {
   return (
     <View
       className="bg-white rounded-xl items-center min-w-[286px]"
@@ -42,5 +42,3 @@ const ProductCard: React.FC<ProductCardProps> = ({ image, name, price }) => {
     </View>
   );
 };
-
-export default ProductCard;

@@ -1,7 +1,8 @@
 import { Cart, Logo } from "@/assets/images/svgs";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import { InterText } from "./InterText";
 
 export function Header() {
   const { cart } = useCart();
@@ -10,7 +11,7 @@ export function Header() {
 
   return (
     <View className="flex-row justify-between items-center h-16 bg-white px-12 w-full">
-      <Text className="text-base text-black">Products</Text>
+      <InterText className="text-base text-black">Products</InterText>
       <Logo width={134.41} height={45.37} />
       <TouchableOpacity
         className="relative"
@@ -21,9 +22,9 @@ export function Header() {
         <Cart />
         {cartItemCount > 0 && (
           <View className="absolute -top-[2px] -right-[3px] min-w-3 h-3 px-1 bg-yellow-400 rounded-full  items-center justify-center">
-            <Text className="text-[8px] font-bold text-black">
+            <InterText className="text-[8px] font-bold text-black">
               {cartItemCount}
-            </Text>
+            </InterText>
           </View>
         )}
       </TouchableOpacity>

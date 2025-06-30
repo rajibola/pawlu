@@ -9,11 +9,11 @@ interface VariantSelectorProps {
   onOptionSelect: (optionId: number, valueId: number) => void;
 }
 
-const VariantSelector: React.FC<VariantSelectorProps> = ({
+export const VariantSelector = ({
   options,
   selectedOptions,
   onOptionSelect,
-}) => {
+}: VariantSelectorProps) => {
   return (
     <View className="gap-11">
       {options.map((option) => {
@@ -75,5 +75,3 @@ const VariantSelector: React.FC<VariantSelectorProps> = ({
     </View>
   );
 };
-
-export default VariantSelector;

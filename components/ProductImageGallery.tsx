@@ -12,9 +12,7 @@ type ProductImageGalleryProps = {
   images: ProductMedia[];
 };
 
-export default function ProductImageGallery({
-  images,
-}: ProductImageGalleryProps) {
+export const ProductImageGallery = ({ images }: ProductImageGalleryProps) => {
   const [selectedImage, setSelectedImage] = useState(images[0]?.url);
   const { width } = useWindowDimensions();
   const isWeb = width > 768;
@@ -69,4 +67,4 @@ export default function ProductImageGallery({
       </ScrollView>
     </View>
   );
-}
+};

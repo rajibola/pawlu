@@ -3,14 +3,14 @@ import { CartItem, useCart } from "@/context/CartContext";
 import { getNumericPrice } from "@/utils/price";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import QuantityInput from "./QuantityInput";
+import { QuantityInput } from "./QuantityInput";
 
 type CartListItemProps = {
   item: CartItem;
   isLast?: boolean;
 };
 
-export function CartListItem({ item, isLast }: CartListItemProps) {
+export const CartListItem = ({ item, isLast }: CartListItemProps) => {
   const { updateQuantity, removeFromCart } = useCart();
   const { product, variant, quantity } = item;
 
@@ -84,4 +84,4 @@ export function CartListItem({ item, isLast }: CartListItemProps) {
       </View>
     </View>
   );
-}
+};

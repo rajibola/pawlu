@@ -9,11 +9,11 @@ interface QuantitySelectorProps {
   accessibilityLabel?: string;
 }
 
-const QuantitySelector: React.FC<QuantitySelectorProps> = ({
+export const QuantitySelector = ({
   quantity,
   setQuantity,
   accessibilityLabel,
-}) => {
+}: QuantitySelectorProps) => {
   return (
     <View
       accessibilityLabel={accessibilityLabel}
@@ -66,5 +66,3 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
     </View>
   );
 };
-
-export default QuantitySelector;

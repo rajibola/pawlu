@@ -8,10 +8,10 @@ interface QuantitySelectorProps {
   setQuantity: (quantity: number) => void;
 }
 
-const QuantitySelector: React.FC<QuantitySelectorProps> = ({
+export const QuantitySelector = ({
   quantity,
   setQuantity,
-}) => {
+}: QuantitySelectorProps) => {
   return (
     <View className="mt-11">
       <InterText className="text-base font-medium text-[#667085] mb-3">
@@ -61,5 +61,3 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
     </View>
   );
 };
-
-export default QuantitySelector;

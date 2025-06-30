@@ -16,11 +16,7 @@ interface PaginationProps {
   apiUrl: string;
 }
 
-export default function Pagination({
-  meta,
-  onPageChange,
-  apiUrl,
-}: PaginationProps) {
+export const Pagination = ({ meta, onPageChange, apiUrl }: PaginationProps) => {
   if (!meta) return null;
 
   const { current_page, last_page, next_page_url, prev_page_url } = meta;
@@ -131,4 +127,4 @@ export default function Pagination({
       })}
     </View>
   );
-}
+};
