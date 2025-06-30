@@ -1,3 +1,5 @@
+import ErrorMessage from "@/components/ErrorMessage";
+import { useError } from "@/context/ErrorContext";
 import { Product } from "@/types";
 import { Link } from "expo-router";
 import React from "react";
@@ -12,10 +14,23 @@ import ProductCard from "./ProductCard.web";
 export default function Home() {
   const { products, loading, error, meta, handlePageChange, apiUrl } =
     useProducts();
+  const { error: globalError, setError, clearError } = useError();
+
+  // Retry handler for ErrorMessage
+  const handleRetry = () => {
+    clearError();
+    handlePageChange(null); // reload first page
+  };
+
+  // If there is a local error, set it globally
+  React.useEffect(() => {
+    if (error) setError(error);
+  }, [error, setError]);
 
   if (loading) {
     return (
       <View className="flex-1 flex-col w-screen">
+        <ErrorMessage onRetry={handleRetry} />
         <ActivityIndicator
           size="large"
           color="#101828"
@@ -40,6 +55,7 @@ export default function Home() {
 
   return (
     <View className="flex-1 flex-col w-screen">
+      <ErrorMessage onRetry={handleRetry} />
       <ScrollView showsVerticalScrollIndicator={false} className="w-full">
         {/* Header */}
         <View className="px-11 mb-14">

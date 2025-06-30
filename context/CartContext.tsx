@@ -46,7 +46,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
           storedCart = await AsyncStorage.getItem("cart");
         }
         if (storedCart) {
-          setCart(JSON.parse(storedCart));
+          const parsed = JSON.parse(storedCart);
+          if (Array.isArray(parsed)) {
+            setCart(parsed);
+          } else {
+            setCart([]); // fallback to empty array if corrupted
+          }
         }
       } catch (error) {
         console.error("Failed to load cart from storage", error);

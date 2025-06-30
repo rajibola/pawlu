@@ -1,3 +1,5 @@
+import ErrorMessage from "@/components/ErrorMessage";
+import { useError } from "@/context/ErrorContext";
 import React from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
 import useProducts from "../hooks/useProducts";
@@ -15,10 +17,23 @@ export default function Home() {
     renderProduct,
     apiUrl,
   } = useProducts();
+  const { error: globalError, setError, clearError } = useError();
+
+  // Retry handler for ErrorMessage
+  const handleRetry = () => {
+    clearError();
+    handlePageChange(null); // reload first page
+  };
+
+  // If there is a local error, set it globally
+  React.useEffect(() => {
+    if (error) setError(error);
+  }, [error, setError]);
 
   if (loading) {
     return (
       <View className="flex-1 flex-col">
+        <ErrorMessage onRetry={handleRetry} />
         <ActivityIndicator
           size="large"
           color="#101828"
@@ -43,6 +58,7 @@ export default function Home() {
 
   return (
     <View className="flex-1 flex-col">
+      <ErrorMessage onRetry={handleRetry} />
       <FlatList
         data={products}
         keyExtractor={(item) => item.id.toString()}
